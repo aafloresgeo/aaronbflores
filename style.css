@@ -443,6 +443,16 @@ body::before {
   object-fit: cover;
 }
 
+.research-img-placeholder {
+  width: 100%;
+  overflow: hidden;
+}
+.research-img-placeholder svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .pub-links {
   margin-top: 1rem;
   display: flex;
