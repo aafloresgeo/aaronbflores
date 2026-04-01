@@ -451,6 +451,16 @@ body::before {
   object-fit: cover;
 }
 
+.research-img-placeholder {
+  width: 100%;
+  overflow: hidden;
+}
+.research-img-placeholder svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .pub-links {
   margin-top: 1rem;
   display: flex;
@@ -823,8 +833,7 @@ body::before {
     <section class="hero">
       <div class="hero-grid">
         <div class="hero-photo-col">
-          <!-- Replace with your photo: <img src="images/headshot.jpg" alt="Dr. Aaron Flores" class="hero-photo"> -->
-          <div class="hero-photo-placeholder"><span>AF</span></div>
+          <img src="images/aaron.jpg" alt="Dr. Aaron Flores" class="hero-photo">
           <p class="hero-coords">33.4242&deg; N, 111.9281&deg; W</p>
         </div>
         <div class="hero-text">
@@ -839,7 +848,6 @@ body::before {
             I earned my B.A. and M.S. in Geography from Texas Tech University and completed my PhD at the University of Utah. My research has been funded by the National Science Foundation and the Ford Foundation. I teach courses in GIS, environmental justice, and statistics, and I am deeply committed to mentoring students. Outside of academia, you can usually find me hanging out with my dogs by the pool, watching sports, or grilling.
           </p>
 
-          <!-- Stat strip -->
           <div class="stat-strip">
             <div class="stat-item">
               <div class="stat-value gold">NSF</div>
@@ -884,7 +892,22 @@ body::before {
       <div class="research-grid">
         <div class="research-card">
           <div class="research-card-accent flood"></div>
-          <!-- Replace: <img src="images/flood-risk.jpg" alt="Flood risk map of the U.S." class="research-card-img"> -->
+          <!-- Replace with your research map when ready: <img src="images/flood-risk.jpg" alt="Flood risk map of the U.S." class="research-card-img"> -->
+          <div class="research-img-placeholder flood-placeholder">
+            <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+              <rect width="800" height="200" fill="#0E1A24"/>
+              <path d="M0 140 Q50 120 100 135 T200 125 T300 140 T400 120 T500 135 T600 125 T700 140 T800 130" fill="none" stroke="rgba(59,159,212,0.3)" stroke-width="1.5"/>
+              <path d="M0 150 Q50 135 100 145 T200 138 T300 150 T400 132 T500 148 T600 135 T700 150 T800 140" fill="none" stroke="rgba(59,159,212,0.2)" stroke-width="1"/>
+              <path d="M0 160 Q50 150 100 158 T200 148 T300 160 T400 145 T500 155 T600 150 T700 158 T800 152" fill="none" stroke="rgba(59,159,212,0.12)" stroke-width="1"/>
+              <rect x="80" y="50" width="120" height="60" rx="3" fill="rgba(59,159,212,0.08)" stroke="rgba(59,159,212,0.2)" stroke-width="0.5"/>
+              <rect x="250" y="40" width="90" height="70" rx="3" fill="rgba(59,159,212,0.06)" stroke="rgba(59,159,212,0.15)" stroke-width="0.5"/>
+              <rect x="500" y="45" width="140" height="65" rx="3" fill="rgba(59,159,212,0.1)" stroke="rgba(59,159,212,0.25)" stroke-width="0.5"/>
+              <circle cx="140" cy="80" r="4" fill="rgba(59,159,212,0.5)"/>
+              <circle cx="295" cy="75" r="3" fill="rgba(59,159,212,0.4)"/>
+              <circle cx="570" cy="78" r="5" fill="rgba(59,159,212,0.5)"/>
+              <text x="400" y="185" text-anchor="middle" fill="rgba(59,159,212,0.25)" font-family="'IBM Plex Mono', monospace" font-size="10">FLOOD ZONE ANALYSIS // FEMA + FATHOM DATA</text>
+            </svg>
+          </div>
           <div class="research-card-body">
             <h3>Federally-Overlooked 100-Year Flood Zones in the U.S.</h3>
             <p>
@@ -933,6 +956,20 @@ body::before {
       </div>
       <div class="research-card">
         <div class="research-card-accent health"></div>
+        <!-- Replace: <img src="images/health-flooding.jpg" alt="Health impacts of flooding research" class="research-card-img"> -->
+        <div class="research-img-placeholder health-placeholder">
+          <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="200" fill="#140E1E"/>
+            <line x1="80" y1="170" x2="80" y2="30" stroke="rgba(155,111,207,0.15)" stroke-width="0.5"/>
+            <line x1="80" y1="170" x2="720" y2="170" stroke="rgba(155,111,207,0.15)" stroke-width="0.5"/>
+            <path d="M100 150 L160 145 L220 148 L280 140 L340 135 L400 128 L420 105 L440 85 L460 78 L480 90 L500 110 L540 125 L600 130 L660 132 L700 134" fill="none" stroke="rgba(155,111,207,0.5)" stroke-width="2"/>
+            <circle cx="440" cy="85" r="6" fill="rgba(155,111,207,0.3)" stroke="rgba(155,111,207,0.6)" stroke-width="1"/>
+            <text x="440" y="70" text-anchor="middle" fill="rgba(155,111,207,0.6)" font-family="'IBM Plex Mono', monospace" font-size="11" font-weight="500">+24.9%</text>
+            <line x1="440" y1="170" x2="440" y2="91" stroke="rgba(155,111,207,0.12)" stroke-width="0.5" stroke-dasharray="3,3"/>
+            <text x="440" y="183" text-anchor="middle" fill="rgba(155,111,207,0.3)" font-family="'IBM Plex Mono', monospace" font-size="9">FLOOD EVENT</text>
+            <text x="400" y="25" text-anchor="middle" fill="rgba(155,111,207,0.2)" font-family="'IBM Plex Mono', monospace" font-size="10">MORTALITY ANALYSIS // 35.6M DEATH RECORDS</text>
+          </svg>
+        </div>
         <div class="research-card-body">
           <h3>Mortality and Large Floods</h3>
           <p>
@@ -964,6 +1001,24 @@ body::before {
       </div>
       <div class="research-card">
         <div class="research-card-accent heat"></div>
+        <!-- Replace: <img src="images/extreme-heat.jpg" alt="Extreme heat research" class="research-card-img"> -->
+        <div class="research-img-placeholder heat-placeholder">
+          <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="200" fill="#1A120A"/>
+            <rect x="60" y="60" width="50" height="50" rx="2" fill="rgba(217,64,64,0.15)" stroke="rgba(217,64,64,0.2)" stroke-width="0.5"/>
+            <rect x="115" y="55" width="50" height="55" rx="2" fill="rgba(232,114,42,0.2)" stroke="rgba(232,114,42,0.25)" stroke-width="0.5"/>
+            <rect x="170" y="50" width="50" height="60" rx="2" fill="rgba(240,180,41,0.15)" stroke="rgba(240,180,41,0.2)" stroke-width="0.5"/>
+            <rect x="225" y="65" width="50" height="45" rx="2" fill="rgba(232,114,42,0.12)" stroke="rgba(232,114,42,0.18)" stroke-width="0.5"/>
+            <rect x="310" y="45" width="55" height="65" rx="2" fill="rgba(217,64,64,0.25)" stroke="rgba(217,64,64,0.3)" stroke-width="0.5"/>
+            <rect x="370" y="50" width="50" height="60" rx="2" fill="rgba(217,64,64,0.2)" stroke="rgba(217,64,64,0.25)" stroke-width="0.5"/>
+            <rect x="425" y="55" width="55" height="55" rx="2" fill="rgba(232,114,42,0.25)" stroke="rgba(232,114,42,0.3)" stroke-width="0.5"/>
+            <rect x="520" y="40" width="60" height="70" rx="2" fill="rgba(217,64,64,0.3)" stroke="rgba(217,64,64,0.35)" stroke-width="0.5"/>
+            <rect x="585" y="50" width="50" height="60" rx="2" fill="rgba(232,114,42,0.18)" stroke="rgba(232,114,42,0.22)" stroke-width="0.5"/>
+            <rect x="640" y="58" width="55" height="52" rx="2" fill="rgba(240,180,41,0.2)" stroke="rgba(240,180,41,0.25)" stroke-width="0.5"/>
+            <path d="M40 140 Q100 132 200 138 T400 128 T600 135 T780 130" fill="none" stroke="rgba(232,114,42,0.2)" stroke-width="1" stroke-dasharray="4,4"/>
+            <text x="400" y="185" text-anchor="middle" fill="rgba(232,114,42,0.25)" font-family="'IBM Plex Mono', monospace" font-size="10">LANDSAT LST // NEIGHBORHOOD-LEVEL HEAT INEQUITIES</text>
+          </svg>
+        </div>
         <div class="research-card-body">
           <h3>Neighborhood-Level Heat Inequities</h3>
           <p>
@@ -985,6 +1040,26 @@ body::before {
       </div>
       <div class="research-card">
         <div class="research-card-accent air"></div>
+        <!-- Replace: <img src="images/air-quality.jpg" alt="Air quality monitoring" class="research-card-img"> -->
+        <div class="research-img-placeholder air-placeholder">
+          <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="200" fill="#0A1614"/>
+            <circle cx="200" cy="100" r="35" fill="none" stroke="rgba(54,181,160,0.15)" stroke-width="0.5"/>
+            <circle cx="200" cy="100" r="55" fill="none" stroke="rgba(54,181,160,0.08)" stroke-width="0.5"/>
+            <circle cx="200" cy="100" r="5" fill="rgba(54,181,160,0.5)"/>
+            <circle cx="420" cy="85" r="30" fill="none" stroke="rgba(54,181,160,0.12)" stroke-width="0.5"/>
+            <circle cx="420" cy="85" r="50" fill="none" stroke="rgba(54,181,160,0.06)" stroke-width="0.5"/>
+            <circle cx="420" cy="85" r="5" fill="rgba(54,181,160,0.4)"/>
+            <circle cx="600" cy="105" r="40" fill="none" stroke="rgba(54,181,160,0.18)" stroke-width="0.5"/>
+            <circle cx="600" cy="105" r="60" fill="none" stroke="rgba(54,181,160,0.08)" stroke-width="0.5"/>
+            <circle cx="600" cy="105" r="5" fill="rgba(54,181,160,0.6)"/>
+            <circle cx="130" cy="60" r="3" fill="rgba(54,181,160,0.2)"/>
+            <circle cx="310" cy="130" r="3" fill="rgba(54,181,160,0.15)"/>
+            <circle cx="520" cy="55" r="3" fill="rgba(54,181,160,0.25)"/>
+            <circle cx="680" cy="140" r="3" fill="rgba(54,181,160,0.2)"/>
+            <text x="400" y="185" text-anchor="middle" fill="rgba(54,181,160,0.25)" font-family="'IBM Plex Mono', monospace" font-size="10">PURPLEAIR SENSOR DISTRIBUTION // LA + PHOENIX</text>
+          </svg>
+        </div>
         <div class="research-card-body">
           <h3>PurpleAir Sensor Inequities</h3>
           <p>
@@ -1001,6 +1076,27 @@ body::before {
         <h2>Community-Engaged Research</h2>
       </div>
       <div class="community-card">
+        <!-- Replace: <img src="images/food-insecurity.jpg" alt="Food insecurity rates in Arizona" class="research-card-img" style="border-radius: 8px; margin-bottom: 1rem;"> -->
+        <div class="research-img-placeholder community-placeholder" style="margin: -1.75rem -1.75rem 1.25rem; border-radius: 10px 10px 0 0; overflow: hidden;">
+          <svg viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
+            <rect width="800" height="180" fill="#1A1508"/>
+            <path d="M300 30 L340 40 L360 55 L380 50 L400 65 L390 80 L410 90 L400 105 L420 115 L400 130 L380 125 L360 135 L340 130 L320 140 L300 130 L280 135 L260 120 L250 105 L260 90 L250 75 L265 60 L280 50 Z" fill="rgba(255,198,39,0.06)" stroke="rgba(255,198,39,0.2)" stroke-width="1"/>
+            <circle cx="340" cy="80" r="4" fill="rgba(255,198,39,0.35)"/>
+            <circle cx="370" cy="95" r="3" fill="rgba(255,198,39,0.25)"/>
+            <circle cx="310" cy="100" r="5" fill="rgba(255,198,39,0.4)"/>
+            <circle cx="350" cy="115" r="3" fill="rgba(255,198,39,0.3)"/>
+            <circle cx="290" cy="75" r="3" fill="rgba(255,198,39,0.2)"/>
+            <rect x="500" y="45" width="200" height="18" rx="2" fill="rgba(255,198,39,0.08)"/>
+            <rect x="500" y="45" width="140" height="18" rx="2" fill="rgba(255,198,39,0.15)"/>
+            <rect x="500" y="70" width="200" height="18" rx="2" fill="rgba(255,198,39,0.08)"/>
+            <rect x="500" y="70" width="100" height="18" rx="2" fill="rgba(255,198,39,0.12)"/>
+            <rect x="500" y="95" width="200" height="18" rx="2" fill="rgba(255,198,39,0.08)"/>
+            <rect x="500" y="95" width="170" height="18" rx="2" fill="rgba(255,198,39,0.18)"/>
+            <rect x="500" y="120" width="200" height="18" rx="2" fill="rgba(255,198,39,0.08)"/>
+            <rect x="500" y="120" width="80" height="18" rx="2" fill="rgba(255,198,39,0.1)"/>
+            <text x="400" y="170" text-anchor="middle" fill="rgba(255,198,39,0.22)" font-family="'IBM Plex Mono', monospace" font-size="10">GIS DASHBOARD // FOOD INSECURITY IN ARIZONA</text>
+          </svg>
+        </div>
         <h3>St. Mary's Food Bank + ASU</h3>
         <p>
           In 2024, my colleagues and I started a partnership with St. Mary's Food Bank, where we co-developed an interactive GIS dashboard to support data-driven strategies for addressing food insecurity across Arizona. As part of this collaboration, I co-mentor undergraduate and graduate students alongside Connor Sheehan (School of Social and Family Dynamics) and Christina Ngo (Office of University Affairs). Together, we train students in spatial and statistical analysis, research design, and manuscript preparation.
@@ -1018,7 +1114,6 @@ body::before {
 
   </main>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-inner">
