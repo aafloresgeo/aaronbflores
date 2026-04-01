@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Aaron Flores | Hazards, Environmental Justice & GIS</title>
+  <meta name="description" content="Aaron Flores is an Assistant Professor at Arizona State University researching environmental justice, flood risk inequities, extreme heat, and health outcomes using GIS and spatial analysis.">
+  <style>
+/* ============================================
+   Dr. Aaron Flores — Academic Site
+   ASU Maroon & Gold + Hazards Theme
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* ASU identity */
+  --asu-maroon: #8C1D40;
+  --asu-maroon-deep: #6A1631;
+  --asu-maroon-glow: rgba(140, 29, 64, 0.15);
+  --asu-maroon-subtle: rgba(140, 29, 64, 0.08);
+  --asu-gold: #FFC627;
+  --asu-gold-dim: #D4A520;
+  --asu-gold-glow: rgba(255, 198, 39, 0.12);
+  --asu-gold-subtle: rgba(255, 198, 39, 0.06);
+
+  /* Core darks */
+  --bg-deep: #0D0A0F;
+  --bg-primary: #110E14;
+  --bg-elevated: #181520;
+  --bg-card: #1E1A27;
+  --bg-card-hover: #252131;
+
+  /* Hazard palette */
+  --flood-blue: #3B9FD4;
+  --flood-blue-dim: #2678A3;
+  --flood-blue-glow: rgba(59, 159, 212, 0.14);
+
+  --health-purple: #9B6FCF;
+  --health-purple-dim: #7B52B0;
+  --health-purple-glow: rgba(155, 111, 207, 0.14);
+
+  --heat-orange: #E8722A;
+  --heat-red: #D94040;
+  --heat-yellow: #F0B429;
+
+  --safe-teal: #36B5A0;
+  --safe-teal-dim: rgba(54, 181, 160, 0.12);
+
+  /* Text */
+  --text-primary: #F0ECF2;
+  --text-secondary: #A8A0B2;
+  --text-muted: #6B6278;
+  --text-accent: #FFC627;
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.06);
+  --border-accent: rgba(140, 29, 64, 0.3);
+  --border-gold: rgba(255, 198, 39, 0.2);
+
+  /* Fonts */
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --max-width: 1040px;
+  --nav-height: 56px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  background: var(--bg-deep);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a {
+  color: var(--asu-gold);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover { color: #FFD75C; }
+
+::selection {
+  background: rgba(140, 29, 64, 0.45);
+  color: white;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse at 15% 30%, rgba(140, 29, 64, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 70%, rgba(255, 198, 39, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- Navigation ---- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(13, 10, 15, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  height: var(--nav-height);
+}
+
+.nav-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-name {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--asu-gold);
+  letter-spacing: 0.03em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  padding: 6px 0;
+  position: relative;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text-secondary); }
+.nav-links a.active { color: var(--asu-gold); }
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+  height: 2px;
+  background: var(--asu-gold);
+  border-radius: 1px;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--text-secondary);
+}
+.nav-toggle svg { width: 22px; height: 22px; }
+
+/* ---- Layout ---- */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.section { padding: 3.5rem 0; }
+.section + .section { border-top: 1px solid var(--border); }
+
+/* ---- Section Headers ---- */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.section-tag.flood { background: var(--flood-blue); color: #061A26; }
+.section-tag.health { background: var(--health-purple); color: #1A0E26; }
+.section-tag.heat { background: var(--heat-orange); color: #1A0A02; }
+.section-tag.air { background: var(--safe-teal); color: #041A16; }
+.section-tag.community { background: var(--asu-gold); color: #1A1400; }
+.section-tag.asu { background: var(--asu-maroon); color: #F0ECF2; }
+
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+/* ---- Hero ---- */
+.hero {
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.hero-photo {
+  width: 200px;
+  height: 240px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid var(--border-accent);
+}
+
+.hero-photo-placeholder {
+  width: 200px;
+  height: 240px;
+  border-radius: 8px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-photo-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--asu-maroon-glow) 0%, transparent 50%, var(--asu-gold-subtle) 100%);
+}
+.hero-photo-placeholder span {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: var(--asu-maroon);
+  position: relative;
+  z-index: 1;
+}
+
+.hero-coords {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+.hero-text h1 {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 0.35rem;
+}
+
+.hero-title-line {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #E0758E;
+  background: var(--asu-maroon-glow);
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 4px;
+  margin-bottom: 0.25rem;
+}
+
+.hero-dept {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+.hero-bio {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 640px;
+}
+.hero-bio + .hero-bio { margin-top: 0.75rem; }
+
+/* ---- Stat strip ---- */
+.stat-strip {
+  display: flex;
+  gap: 1px;
+  margin-top: 1.5rem;
+  background: var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 520px;
+}
+
+.stat-item {
+  flex: 1;
+  background: var(--bg-card);
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.stat-value.maroon { color: #E0758E; }
+.stat-value.gold { color: var(--asu-gold); }
+.stat-value.blue { color: var(--flood-blue); }
+.stat-value.orange { color: var(--heat-orange); }
+.stat-value.teal { color: var(--safe-teal); }
+.stat-value.purple { color: var(--health-purple); }
+
+.stat-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ---- Pills ---- */
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 7px 14px;
+  border-radius: 6px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+.pill:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--border-gold);
+}
+.pill svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+.pill-accent {
+  background: var(--asu-maroon);
+  color: white;
+  border-color: var(--asu-maroon);
+}
+.pill-accent:hover {
+  background: var(--asu-maroon-deep);
+  color: white;
+  border-color: var(--asu-maroon-deep);
+}
+
+/* ---- Research Cards ---- */
+.research-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.research-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.research-card:hover {
+  border-color: var(--border-accent);
+  box-shadow: 0 4px 24px rgba(140, 29, 64, 0.08);
+}
+
+.research-card-accent { height: 4px; }
+.research-card-accent.flood {
+  background: linear-gradient(90deg, var(--flood-blue) 0%, var(--flood-blue-dim) 100%);
+}
+.research-card-accent.health {
+  background: linear-gradient(90deg, var(--health-purple) 0%, var(--health-purple-dim) 100%);
+}
+.research-card-accent.heat {
+  background: linear-gradient(90deg, var(--heat-red) 0%, var(--heat-orange) 50%, var(--heat-yellow) 100%);
+}
+.research-card-accent.air {
+  background: linear-gradient(90deg, var(--safe-teal) 0%, #2A8F7E 100%);
+}
+.research-card-accent.asu {
+  background: linear-gradient(90deg, var(--asu-maroon) 0%, var(--asu-gold) 100%);
+}
+
+.research-card-body {
+  padding: 1.5rem 1.75rem;
+}
+
+.research-card-body h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+}
+
+.research-card-body p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+.research-card-body p + p { margin-top: 0.6rem; }
+
+.research-card-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.pub-links {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pub-link {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 5px;
+  transition: all 0.2s;
+}
+
+.pub-link.flood-link {
+  background: var(--flood-blue-glow);
+  color: var(--flood-blue);
+  border: 1px solid rgba(59, 159, 212, 0.2);
+}
+.pub-link.flood-link:hover {
+  background: var(--flood-blue);
+  color: white;
+  border-color: var(--flood-blue);
+}
+
+.pub-link.health-link {
+  background: var(--health-purple-glow);
+  color: var(--health-purple);
+  border: 1px solid rgba(155, 111, 207, 0.2);
+}
+.pub-link.health-link:hover {
+  background: var(--health-purple);
+  color: white;
+  border-color: var(--health-purple);
+}
+
+.pub-link.heat-link {
+  background: rgba(232, 114, 42, 0.1);
+  color: var(--heat-orange);
+  border: 1px solid rgba(232, 114, 42, 0.2);
+}
+.pub-link.heat-link:hover {
+  background: var(--heat-orange);
+  color: white;
+  border-color: var(--heat-orange);
+}
+
+.pub-link.teal-link {
+  background: var(--safe-teal-dim);
+  color: var(--safe-teal);
+  border: 1px solid rgba(54, 181, 160, 0.2);
+}
+.pub-link.teal-link:hover {
+  background: var(--safe-teal);
+  color: white;
+  border-color: var(--safe-teal);
+}
+
+/* ---- Two-column editorial ---- */
+.editorial-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* ---- Data callout ---- */
+.data-callout {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: 0.5rem 0;
+}
+.data-callout .data-num {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--health-purple);
+}
+.data-callout .data-unit {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ---- Community card ---- */
+.community-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+}
+.community-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--asu-maroon) 0%, var(--asu-gold) 100%);
+}
+.community-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+}
+.community-card p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+.community-card p + p { margin-top: 0.6rem; }
+
+.media-links {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.media-link {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 5px;
+  background: var(--asu-gold-glow);
+  color: var(--asu-gold);
+  border: 1px solid var(--border-gold);
+  transition: all 0.2s;
+}
+.media-link:hover {
+  background: var(--asu-gold);
+  color: #1A1400;
+  border-color: var(--asu-gold);
+}
+
+/* ---- Students ---- */
+.page-header { padding: 3rem 0 1rem; }
+.page-header h1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+}
+.page-header p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 0.4rem;
+}
+
+.students-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.student-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.student-card:hover {
+  border-color: var(--border-accent);
+  box-shadow: 0 4px 24px rgba(140, 29, 64, 0.06);
+}
+
+.student-photo {
+  width: 180px;
+  min-height: 220px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.student-photo-placeholder {
+  width: 180px;
+  min-height: 220px;
+  flex-shrink: 0;
+  background: var(--bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  position: relative;
+}
+.student-photo-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, var(--asu-maroon-subtle) 100%);
+}
+
+.student-info {
+  padding: 1.25rem 1.5rem;
+  flex: 1;
+}
+.student-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+.student-program {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--asu-gold);
+  margin-bottom: 0.15rem;
+}
+.student-committee {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.65rem;
+}
+.student-bio {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+/* Alumni */
+.alumni-section { padding: 2.5rem 0 3.5rem; }
+
+.alumni-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.alumni-item {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.alumni-item strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.alumni-degree {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--asu-maroon-glow);
+  color: #E0758E;
+  white-space: nowrap;
+}
+
+/* ---- Footer ---- */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 0;
+  text-align: center;
+}
+.footer-inner {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+.footer a { color: var(--text-muted); }
+.footer a:hover { color: var(--asu-gold); }
+
+.footer::before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--asu-maroon), var(--asu-gold));
+  border-radius: 2px;
+  margin: 0 auto 1.25rem;
+}
+
+/* ---- Dashed grid line ---- */
+.grid-line {
+  width: 100%;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--border) 0px, var(--border) 4px, transparent 4px, transparent 8px);
+  margin: 0.5rem 0;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0; right: 0;
+    background: rgba(13, 10, 15, 0.95);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    padding: 1rem 1.5rem;
+    gap: 0.75rem;
+  }
+  .nav-links.open { display: flex; }
+  .nav-toggle { display: block; }
+  .nav-inner { position: relative; }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-photo-col { justify-self: center; }
+  .hero-photo, .hero-photo-placeholder { width: 160px; height: 190px; }
+  .hero-bio { max-width: 100%; }
+  .stat-strip { max-width: 100%; }
+  .pill-row { justify-content: center; }
+  .hero-text h1 { font-size: 1.8rem; }
+
+  .editorial-row { grid-template-columns: 1fr; }
+
+  .student-card { flex-direction: column; }
+  .student-photo, .student-photo-placeholder {
+    width: 100%;
+    min-height: 140px;
+    height: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-strip { flex-wrap: wrap; }
+  .stat-item { flex: 1 1 45%; }
+}
+
+</style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-name">FLORES_LAB //</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="students.html">Students</a></li>
+        <li><a href="https://search.asu.edu/profile/3269825" target="_blank" rel="noopener">ASU Profile</a></li>
+        <li><a href="https://scholar.google.com/citations?user=OSSzZk4AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
+        <li><a href="https://bsky.app/profile/aaflores.bsky.social" target="_blank" rel="noopener">Bluesky</a></li>
+        <li><a href="files/Flores_CV.pdf" target="_blank" rel="noopener">CV</a></li>
+        <li><a href="https://thesanfordschool.asu.edu/data-devils" target="_blank" rel="noopener">Data Devils</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-photo-col">
+          <!-- Replace with your photo: <img src="images/headshot.jpg" alt="Dr. Aaron Flores" class="hero-photo"> -->
+          <div class="hero-photo-placeholder"><span>AF</span></div>
+          <p class="hero-coords">33.4242&deg; N, 111.9281&deg; W</p>
+        </div>
+        <div class="hero-text">
+          <h1>Aaron Flores</h1>
+          <p class="hero-title-line">Assistant Professor</p>
+          <p class="hero-dept">School of Geographical Sciences &amp; Urban Planning, Arizona State University</p>
+
+          <p class="hero-bio">
+            I am a human-environmental geographer with research interests centered around the social aspects of hazards and disasters. My work focuses on distributional environmental justice, determining whether socially disadvantaged groups face disproportionate exposure to hazards such as flooding, extreme heat, and pollution. I also examine how environmental exposures relate to health outcomes, and how individuals and communities perceive risks from these hazards. I use quantitative methods, large datasets, and geospatial techniques in GIS to analyze patterns of environmental injustice.
+          </p>
+          <p class="hero-bio">
+            I earned my B.A. and M.S. in Geography from Texas Tech University and completed my PhD at the University of Utah. My research has been funded by the National Science Foundation and the Ford Foundation. I teach courses in GIS, environmental justice, and statistics, and I am deeply committed to mentoring students. Outside of academia, you can usually find me hanging out with my dogs by the pool, watching sports, or grilling.
+          </p>
+
+          <!-- Stat strip -->
+          <div class="stat-strip">
+            <div class="stat-item">
+              <div class="stat-value gold">NSF</div>
+              <div class="stat-label">Funded</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value maroon">8</div>
+              <div class="stat-label">Advisees</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value blue">GIS</div>
+              <div class="stat-label">Methods</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value gold">EJ</div>
+              <div class="stat-label">Focus</div>
+            </div>
+          </div>
+
+          <div class="pill-row">
+            <a href="mailto:aaron.b.flores@asu.edu" class="pill pill-accent">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+              aaron.b.flores@asu.edu
+            </a>
+            <a href="https://scholar.google.com/citations?user=OSSzZk4AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener" class="pill">Google Scholar</a>
+            <a href="https://bsky.app/profile/aaflores.bsky.social" target="_blank" rel="noopener" class="pill">Bluesky</a>
+            <a href="files/Flores_CV.pdf" target="_blank" rel="noopener" class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              CV
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FLOOD RISK ==================== -->
+    <section class="section" id="flood-risk">
+      <div class="section-header">
+        <span class="section-tag flood">Flood</span>
+        <h2>Flood Risk Inequities</h2>
+      </div>
+      <div class="research-grid">
+        <div class="research-card">
+          <div class="research-card-accent flood"></div>
+          <!-- Replace: <img src="images/flood-risk.jpg" alt="Flood risk map of the U.S." class="research-card-img"> -->
+          <div class="research-card-body">
+            <h3>Federally-Overlooked 100-Year Flood Zones in the U.S.</h3>
+            <p>
+              My main current research area focuses on federally-overlooked 100-year flood risk inequities in the Conterminous United States. These are flood zones that are not identified in federal flood risk assessments. This work utilizes dasymetric mapping, flood risk data from <a href="https://www.fathom.global/" target="_blank" rel="noopener">Fathom</a> and the Federal Emergency Management Agency (FEMA), as well as sociodemographic data from the American Community Survey.
+            </p>
+            <div class="pub-links">
+              <a href="https://doi.org/10.1038/s41598-025-95120-9" target="_blank" rel="noopener" class="pub-link flood-link">Flores et al. 2025 &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="editorial-row">
+          <div class="research-card">
+            <div class="research-card-accent flood"></div>
+            <div class="research-card-body">
+              <h3>Building Quality in Overlooked Zones</h3>
+              <p>
+                Former ASU PhD student Yilei Yu (now a postdoc at Rice University) led a study showing that buildings in federally-overlooked flood zones are of lower quality and condition than buildings in FEMA flood zones in Greater Houston.
+              </p>
+              <div class="pub-links">
+                <a href="https://doi.org/10.1007/s11111-025-00485-8" target="_blank" rel="noopener" class="pub-link flood-link">Yu et al. 2025 &rarr;</a>
+              </div>
+            </div>
+          </div>
+          <div class="research-card">
+            <div class="research-card-accent flood"></div>
+            <div class="research-card-body">
+              <h3>FEMA Underprediction in Utah</h3>
+              <p>
+                University of Utah PhD student Austin Clark led a study showing that FEMA may underpredict flood risks to residential properties in Utah by <strong style="color: var(--flood-blue); font-family: var(--font-mono);">13&times;</strong>.
+              </p>
+              <div class="pub-links">
+                <a href="https://doi.org/10.1016/j.ijdrr.2025.105247" target="_blank" rel="noopener" class="pub-link flood-link">Clark et al. 2025 &rarr;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== HEALTH IMPACTS ==================== -->
+    <section class="section" id="health">
+      <div class="section-header">
+        <span class="section-tag health">Health</span>
+        <h2>Health Impacts of Flooding</h2>
+      </div>
+      <div class="research-card">
+        <div class="research-card-accent health"></div>
+        <div class="research-card-body">
+          <h3>Mortality and Large Floods</h3>
+          <p>
+            During my PhD at the University of Utah, I conducted extensive work on the physical and mental health impacts of Hurricane Harvey, highlighting disproportionate impacts on racial/ethnic minorities and those of low socioeconomic status in Greater Houston.
+          </p>
+          <p>
+            More recent work in collaboration with researchers at Columbia University, Harvard, and the University of Arizona analyzes <strong style="color: var(--text-primary); font-family: var(--font-mono);">35.6 million</strong> death records spanning the past two decades. The study reveals that large floods were linked to up to a
+          </p>
+          <div class="data-callout">
+            <span class="data-num">24.9%</span>
+            <span class="data-unit">rise in deaths from major causes</span>
+          </div>
+          <p>
+            including cardiovascular disease, infectious diseases, and injuries, even in non-hurricane-related floods caused by heavy rain, snowmelt, or ice jams. I have also conducted a review paper examining differential impacts in physical and mental health outcomes while assessing methodological considerations across the literature on flooding and health in the U.S.
+          </p>
+          <div class="pub-links">
+            <a href="https://doi.org/10.1038/s41591-024-03358-z" target="_blank" rel="noopener" class="pub-link health-link">Nature Medicine 2024 &rarr;</a>
+            <a href="https://doi.org/10.1007/s40572-024-00446-7" target="_blank" rel="noopener" class="pub-link health-link">Review Paper &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== EXTREME HEAT ==================== -->
+    <section class="section" id="heat">
+      <div class="section-header">
+        <span class="section-tag heat">Heat</span>
+        <h2>Extreme Heat</h2>
+      </div>
+      <div class="research-card">
+        <div class="research-card-accent heat"></div>
+        <div class="research-card-body">
+          <h3>Neighborhood-Level Heat Inequities</h3>
+          <p>
+            I have examined inequitable exposure to extreme heat at the neighborhood level using Landsat satellite imagery and air temperature data in places such as Phoenix, AZ, Lubbock, TX, and the Northeastern United States. This research has consistently observed that neighborhoods with higher percentages of racial/ethnic minorities and those of low socioeconomic status experience disproportionate exposure to elevated temperatures. I am also increasingly interested in other metrics and devices to examine heat, such as mean radiant temperature and sensor technologies.
+          </p>
+          <div class="pub-links">
+            <a href="https://doi.org/10.1016/j.uclim.2024.102276" target="_blank" rel="noopener" class="pub-link heat-link">Phoenix, AZ &rarr;</a>
+            <a href="https://doi.org/10.1016/j.envres.2021.111805" target="_blank" rel="noopener" class="pub-link heat-link">Northeastern U.S. &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== AIR QUALITY ==================== -->
+    <section class="section" id="air">
+      <div class="section-header">
+        <span class="section-tag air">Air</span>
+        <h2>Air Quality Monitoring</h2>
+      </div>
+      <div class="research-card">
+        <div class="research-card-accent air"></div>
+        <div class="research-card-body">
+          <h3>PurpleAir Sensor Inequities</h3>
+          <p>
+            I have collaborated on projects focused on social inequalities in the distribution of PurpleAir sensors (a non-governmental air quality monitoring network) in Los Angeles County, California, and Phoenix, Arizona. This work indicates that neighborhoods with higher percentages of Hispanic/Latinx, Black, and low-income residents have reduced access to information about local air pollution. The near real-time, high spatial resolution pollution estimates provided by PurpleAir can help the public stay informed about their local air quality, which may help them make routine and/or protective decisions to lessen their exposures. While people seek to use citizen science to equalize environmental knowledge, the self-organizing nature of non-governmental air quality monitoring networks can be exclusionary and may reproduce patterns of environmental injustice.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== COMMUNITY ==================== -->
+    <section class="section" id="community">
+      <div class="section-header">
+        <span class="section-tag community">Community</span>
+        <h2>Community-Engaged Research</h2>
+      </div>
+      <div class="community-card">
+        <h3>St. Mary's Food Bank + ASU</h3>
+        <p>
+          In 2024, my colleagues and I started a partnership with St. Mary's Food Bank, where we co-developed an interactive GIS dashboard to support data-driven strategies for addressing food insecurity across Arizona. As part of this collaboration, I co-mentor undergraduate and graduate students alongside Connor Sheehan (School of Social and Family Dynamics) and Christina Ngo (Office of University Affairs). Together, we train students in spatial and statistical analysis, research design, and manuscript preparation.
+        </p>
+        <p>
+          We work closely with food bank leadership to co-produce research questions, brainstorm project ideas, and create data visualizations. This collaboration also led to the creation of the <a href="https://thesanfordschool.asu.edu/data-devils" target="_blank" rel="noopener">Data Devils</a> program, which I co-founded with Sheehan and Ngo. Data Devils provides graduate students with hands-on training in data analytics and community-engaged research.
+        </p>
+        <div class="media-links">
+          <a href="https://news.asu.edu/20241206-science-and-technology-asu-partners-st-marys-food-bank-develop-innovative-dashboard" target="_blank" rel="noopener" class="media-link">ASU News &rarr;</a>
+          <a href="https://www.route-fifty.com/management/2025/06/food-insecurity-creeps-data-helps-food-banks-cater-those-need/405891/" target="_blank" rel="noopener" class="media-link">Route Fifty &rarr;</a>
+          <a href="https://www.govtech.com/health/gis-supports-informs-bringing-food-to-arizona-tribal-nations" target="_blank" rel="noopener" class="media-link">Government Tech &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        &copy; 2025 Aaron Flores &middot; Arizona State University &middot; School of Geographical Sciences &amp; Urban Planning
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
