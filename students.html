@@ -20,7 +20,6 @@
 }
 
 :root {
-  /* ASU identity */
   --asu-maroon: #8C1D40;
   --asu-maroon-deep: #6A1631;
   --asu-maroon-glow: rgba(140, 29, 64, 0.15);
@@ -30,41 +29,33 @@
   --asu-gold-glow: rgba(255, 198, 39, 0.12);
   --asu-gold-subtle: rgba(255, 198, 39, 0.06);
 
-  /* Core darks */
   --bg-deep: #0D0A0F;
   --bg-primary: #110E14;
   --bg-elevated: #181520;
   --bg-card: #1E1A27;
   --bg-card-hover: #252131;
 
-  /* Hazard palette */
   --flood-blue: #3B9FD4;
   --flood-blue-dim: #2678A3;
   --flood-blue-glow: rgba(59, 159, 212, 0.14);
-
   --health-purple: #9B6FCF;
   --health-purple-dim: #7B52B0;
   --health-purple-glow: rgba(155, 111, 207, 0.14);
-
   --heat-orange: #E8722A;
   --heat-red: #D94040;
   --heat-yellow: #F0B429;
-
   --safe-teal: #36B5A0;
   --safe-teal-dim: rgba(54, 181, 160, 0.12);
 
-  /* Text */
   --text-primary: #F0ECF2;
   --text-secondary: #A8A0B2;
   --text-muted: #6B6278;
   --text-accent: #FFC627;
 
-  /* Borders */
   --border: rgba(255, 255, 255, 0.06);
   --border-accent: rgba(140, 29, 64, 0.3);
   --border-gold: rgba(255, 198, 39, 0.2);
 
-  /* Fonts */
   --font-display: 'DM Serif Display', Georgia, serif;
   --font-body: 'IBM Plex Sans', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
@@ -77,7 +68,7 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.7;
   color: var(--text-primary);
   background: var(--bg-deep);
@@ -98,15 +89,12 @@ a:hover { color: #FFD75C; }
   color: white;
 }
 
-body::before {
-  content: '';
+/* ---- Interactive particle canvas ---- */
+#bg-canvas {
   position: fixed;
   inset: 0;
-  background-image:
-    radial-gradient(ellipse at 15% 30%, rgba(140, 29, 64, 0.06) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 70%, rgba(255, 198, 39, 0.03) 0%, transparent 50%);
-  pointer-events: none;
   z-index: 0;
+  pointer-events: none;
 }
 
 /* ---- Navigation ---- */
@@ -147,7 +135,7 @@ body::before {
 }
 
 .nav-links a {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 500;
   color: var(--text-muted);
   letter-spacing: 0.02em;
@@ -199,7 +187,7 @@ body::before {
 
 .section-tag {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -217,7 +205,7 @@ body::before {
 
 .section-header h2 {
   font-family: var(--font-display);
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   font-weight: 400;
   color: var(--text-primary);
 }
@@ -230,23 +218,23 @@ body::before {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 240px 1fr;
   gap: 2.5rem;
   align-items: start;
 }
 
 .hero-photo {
-  width: 200px;
-  height: 240px;
-  border-radius: 8px;
+  width: 240px;
+  height: 300px;
+  border-radius: 10px;
   object-fit: cover;
   border: 2px solid var(--border-accent);
 }
 
 .hero-photo-placeholder {
-  width: 200px;
-  height: 240px;
-  border-radius: 8px;
+  width: 240px;
+  height: 300px;
+  border-radius: 10px;
   background: var(--bg-card);
   border: 2px solid var(--border-accent);
   display: flex;
@@ -271,8 +259,8 @@ body::before {
 
 .hero-coords {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--text-muted);
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
   margin-top: 8px;
   text-align: center;
   letter-spacing: 0.04em;
@@ -280,14 +268,14 @@ body::before {
 
 .hero-text h1 {
   font-family: var(--font-display);
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   font-weight: 400;
   line-height: 1.15;
   margin-bottom: 0.35rem;
 }
 
 .hero-title-line {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: #E0758E;
   background: var(--asu-maroon-glow);
@@ -298,18 +286,38 @@ body::before {
 }
 
 .hero-dept {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   color: var(--text-secondary);
   margin-bottom: 1.25rem;
 }
 
 .hero-bio {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
   line-height: 1.8;
-  max-width: 640px;
+  max-width: 660px;
 }
 .hero-bio + .hero-bio { margin-top: 0.75rem; }
+
+/* ---- Affiliation logos ---- */
+.affiliation-logos {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.affiliation-logos img {
+  height: 50px;
+  width: auto;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.affiliation-logos img:hover {
+  opacity: 1;
+}
 
 /* ---- Stat strip ---- */
 .stat-strip {
@@ -331,7 +339,7 @@ body::before {
 
 .stat-value {
   font-family: var(--font-mono);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 500;
   color: var(--text-primary);
 }
@@ -343,7 +351,7 @@ body::before {
 .stat-value.purple { color: var(--health-purple); }
 
 .stat-label {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -363,7 +371,7 @@ body::before {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 500;
   padding: 7px 14px;
   border-radius: 6px;
@@ -410,141 +418,61 @@ body::before {
 }
 
 .research-card-accent { height: 4px; }
-.research-card-accent.flood {
-  background: linear-gradient(90deg, var(--flood-blue) 0%, var(--flood-blue-dim) 100%);
-}
-.research-card-accent.health {
-  background: linear-gradient(90deg, var(--health-purple) 0%, var(--health-purple-dim) 100%);
-}
-.research-card-accent.heat {
-  background: linear-gradient(90deg, var(--heat-red) 0%, var(--heat-orange) 50%, var(--heat-yellow) 100%);
-}
-.research-card-accent.air {
-  background: linear-gradient(90deg, var(--safe-teal) 0%, #2A8F7E 100%);
-}
-.research-card-accent.asu {
-  background: linear-gradient(90deg, var(--asu-maroon) 0%, var(--asu-gold) 100%);
-}
+.research-card-accent.flood { background: linear-gradient(90deg, var(--flood-blue) 0%, var(--flood-blue-dim) 100%); }
+.research-card-accent.health { background: linear-gradient(90deg, var(--health-purple) 0%, var(--health-purple-dim) 100%); }
+.research-card-accent.heat { background: linear-gradient(90deg, var(--heat-red) 0%, var(--heat-orange) 50%, var(--heat-yellow) 100%); }
+.research-card-accent.air { background: linear-gradient(90deg, var(--safe-teal) 0%, #2A8F7E 100%); }
+.research-card-accent.asu { background: linear-gradient(90deg, var(--asu-maroon) 0%, var(--asu-gold) 100%); }
 
-.research-card-body {
-  padding: 1.5rem 1.75rem;
-}
+.research-card-body { padding: 1.5rem 1.75rem; }
 
 .research-card-body h3 {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 400;
   color: var(--text-primary);
   margin-bottom: 0.6rem;
 }
 
 .research-card-body p {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   color: var(--text-secondary);
   line-height: 1.75;
 }
 .research-card-body p + p { margin-top: 0.6rem; }
 
-.research-card-img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-}
+.research-card-img { width: 100%; height: 220px; object-fit: cover; }
 
-.research-img-placeholder {
-  width: 100%;
-  overflow: hidden;
-}
-.research-img-placeholder svg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+.research-img-placeholder { width: 100%; overflow: hidden; }
+.research-img-placeholder svg { width: 100%; height: auto; display: block; }
 
-.pub-links {
-  margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
+.pub-links { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
 .pub-link {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 500;
   padding: 5px 12px;
   border-radius: 5px;
   transition: all 0.2s;
 }
 
-.pub-link.flood-link {
-  background: var(--flood-blue-glow);
-  color: var(--flood-blue);
-  border: 1px solid rgba(59, 159, 212, 0.2);
-}
-.pub-link.flood-link:hover {
-  background: var(--flood-blue);
-  color: white;
-  border-color: var(--flood-blue);
-}
-
-.pub-link.health-link {
-  background: var(--health-purple-glow);
-  color: var(--health-purple);
-  border: 1px solid rgba(155, 111, 207, 0.2);
-}
-.pub-link.health-link:hover {
-  background: var(--health-purple);
-  color: white;
-  border-color: var(--health-purple);
-}
-
-.pub-link.heat-link {
-  background: rgba(232, 114, 42, 0.1);
-  color: var(--heat-orange);
-  border: 1px solid rgba(232, 114, 42, 0.2);
-}
-.pub-link.heat-link:hover {
-  background: var(--heat-orange);
-  color: white;
-  border-color: var(--heat-orange);
-}
-
-.pub-link.teal-link {
-  background: var(--safe-teal-dim);
-  color: var(--safe-teal);
-  border: 1px solid rgba(54, 181, 160, 0.2);
-}
-.pub-link.teal-link:hover {
-  background: var(--safe-teal);
-  color: white;
-  border-color: var(--safe-teal);
-}
+.pub-link.flood-link { background: var(--flood-blue-glow); color: var(--flood-blue); border: 1px solid rgba(59, 159, 212, 0.2); }
+.pub-link.flood-link:hover { background: var(--flood-blue); color: white; border-color: var(--flood-blue); }
+.pub-link.health-link { background: var(--health-purple-glow); color: var(--health-purple); border: 1px solid rgba(155, 111, 207, 0.2); }
+.pub-link.health-link:hover { background: var(--health-purple); color: white; border-color: var(--health-purple); }
+.pub-link.heat-link { background: rgba(232, 114, 42, 0.1); color: var(--heat-orange); border: 1px solid rgba(232, 114, 42, 0.2); }
+.pub-link.heat-link:hover { background: var(--heat-orange); color: white; border-color: var(--heat-orange); }
+.pub-link.teal-link { background: var(--safe-teal-dim); color: var(--safe-teal); border: 1px solid rgba(54, 181, 160, 0.2); }
+.pub-link.teal-link:hover { background: var(--safe-teal); color: white; border-color: var(--safe-teal); }
 
 /* ---- Two-column editorial ---- */
-.editorial-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
+.editorial-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 
 /* ---- Data callout ---- */
-.data-callout {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 4px;
-  margin: 0.5rem 0;
-}
-.data-callout .data-num {
-  font-family: var(--font-mono);
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: var(--health-purple);
-}
-.data-callout .data-unit {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
+.data-callout { display: inline-flex; align-items: baseline; gap: 4px; margin: 0.5rem 0; }
+.data-callout .data-num { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 500; color: var(--health-purple); }
+.data-callout .data-unit { font-size: 0.85rem; color: var(--text-muted); }
 
 /* ---- Community card ---- */
 .community-card {
@@ -562,30 +490,14 @@ body::before {
   height: 4px;
   background: linear-gradient(90deg, var(--asu-maroon) 0%, var(--asu-gold) 100%);
 }
-.community-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 400;
-  color: var(--text-primary);
-  margin-bottom: 0.6rem;
-}
-.community-card p {
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  line-height: 1.75;
-}
+.community-card h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; color: var(--text-primary); margin-bottom: 0.6rem; }
+.community-card p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.75; }
 .community-card p + p { margin-top: 0.6rem; }
 
-.media-links {
-  margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
+.media-links { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .media-link {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 500;
   padding: 5px 12px;
   border-radius: 5px;
@@ -594,30 +506,14 @@ body::before {
   border: 1px solid var(--border-gold);
   transition: all 0.2s;
 }
-.media-link:hover {
-  background: var(--asu-gold);
-  color: #1A1400;
-  border-color: var(--asu-gold);
-}
+.media-link:hover { background: var(--asu-gold); color: #1A1400; border-color: var(--asu-gold); }
 
 /* ---- Students ---- */
 .page-header { padding: 3rem 0 1rem; }
-.page-header h1 {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 400;
-}
-.page-header p {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  margin-top: 0.4rem;
-}
+.page-header h1 { font-family: var(--font-display); font-size: 2.1rem; font-weight: 400; }
+.page-header p { font-size: 0.95rem; color: var(--text-secondary); margin-top: 0.4rem; }
 
-.students-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-}
+.students-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
 
 .student-card {
   background: var(--bg-card);
@@ -627,131 +523,56 @@ body::before {
   display: flex;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
-.student-card:hover {
-  border-color: var(--border-accent);
-  box-shadow: 0 4px 24px rgba(140, 29, 64, 0.06);
-}
+.student-card:hover { border-color: var(--border-accent); box-shadow: 0 4px 24px rgba(140, 29, 64, 0.06); }
 
-.student-photo {
-  width: 180px;
-  min-height: 220px;
-  object-fit: cover;
-  flex-shrink: 0;
-}
+.student-photo { width: 180px; min-height: 220px; object-fit: cover; flex-shrink: 0; }
 .student-photo-placeholder {
-  width: 180px;
-  min-height: 220px;
-  flex-shrink: 0;
+  width: 180px; min-height: 220px; flex-shrink: 0;
   background: var(--bg-elevated);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 1.5rem; color: var(--text-muted);
   position: relative;
 }
 .student-photo-placeholder::after {
-  content: '';
-  position: absolute;
-  inset: 0;
+  content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, transparent 50%, var(--asu-maroon-subtle) 100%);
 }
 
-.student-info {
-  padding: 1.25rem 1.5rem;
-  flex: 1;
-}
-.student-name {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: var(--text-primary);
-  margin-bottom: 0.2rem;
-}
-.student-program {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--asu-gold);
-  margin-bottom: 0.15rem;
-}
-.student-committee {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-bottom: 0.65rem;
-}
-.student-bio {
-  font-size: 0.84rem;
-  color: var(--text-secondary);
-  line-height: 1.75;
-}
+.student-info { padding: 1.25rem 1.5rem; flex: 1; }
+.student-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--text-primary); margin-bottom: 0.2rem; }
+.student-program { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; color: var(--asu-gold); margin-bottom: 0.15rem; }
+.student-committee { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.65rem; }
+.student-bio { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.75; }
 
 /* Alumni */
 .alumni-section { padding: 2.5rem 0 3.5rem; }
-
-.alumni-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
+.alumni-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
 .alumni-item {
-  display: flex;
-  gap: 0.75rem;
-  align-items: baseline;
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  padding: 10px 14px;
-  background: var(--bg-card);
-  border-radius: 8px;
-  border: 1px solid var(--border);
+  display: flex; gap: 0.75rem; align-items: baseline;
+  font-size: 0.92rem; color: var(--text-secondary);
+  padding: 10px 14px; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border);
 }
-.alumni-item strong {
-  color: var(--text-primary);
-  font-weight: 600;
-}
+.alumni-item strong { color: var(--text-primary); font-weight: 600; }
 .alumni-degree {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 500;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: var(--asu-maroon-glow);
-  color: #E0758E;
-  white-space: nowrap;
+  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500;
+  padding: 2px 8px; border-radius: 4px;
+  background: var(--asu-maroon-glow); color: #E0758E; white-space: nowrap;
 }
 
 /* ---- Footer ---- */
-.footer {
-  border-top: 1px solid var(--border);
-  padding: 2rem 0;
-  text-align: center;
-}
-.footer-inner {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  letter-spacing: 0.02em;
-}
+.footer { border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; }
+.footer-inner { font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 0.02em; }
 .footer a { color: var(--text-muted); }
 .footer a:hover { color: var(--asu-gold); }
-
 .footer::before {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 3px;
+  content: ''; display: block; width: 60px; height: 3px;
   background: linear-gradient(90deg, var(--asu-maroon), var(--asu-gold));
-  border-radius: 2px;
-  margin: 0 auto 1.25rem;
+  border-radius: 2px; margin: 0 auto 1.25rem;
 }
 
 /* ---- Dashed grid line ---- */
 .grid-line {
-  width: 100%;
-  height: 1px;
+  width: 100%; height: 1px;
   background: repeating-linear-gradient(90deg, var(--border) 0px, var(--border) 4px, transparent 4px, transparent 8px);
   margin: 0.5rem 0;
 }
@@ -759,40 +580,27 @@ body::before {
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
   .nav-links {
-    display: none;
-    position: absolute;
-    top: var(--nav-height);
-    left: 0; right: 0;
-    background: rgba(13, 10, 15, 0.95);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    flex-direction: column;
-    padding: 1rem 1.5rem;
-    gap: 0.75rem;
+    display: none; position: absolute; top: var(--nav-height); left: 0; right: 0;
+    background: rgba(13, 10, 15, 0.95); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border); flex-direction: column; padding: 1rem 1.5rem; gap: 0.75rem;
   }
   .nav-links.open { display: flex; }
   .nav-toggle { display: block; }
   .nav-inner { position: relative; }
 
-  .hero-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
+  .hero-grid { grid-template-columns: 1fr; text-align: center; }
   .hero-photo-col { justify-self: center; }
-  .hero-photo, .hero-photo-placeholder { width: 160px; height: 190px; }
+  .hero-photo, .hero-photo-placeholder { width: 180px; height: 220px; }
   .hero-bio { max-width: 100%; }
   .stat-strip { max-width: 100%; }
   .pill-row { justify-content: center; }
-  .hero-text h1 { font-size: 1.8rem; }
+  .hero-text h1 { font-size: 2rem; }
+  .affiliation-logos { justify-content: center; }
 
   .editorial-row { grid-template-columns: 1fr; }
 
   .student-card { flex-direction: column; }
-  .student-photo, .student-photo-placeholder {
-    width: 100%;
-    min-height: 140px;
-    height: 140px;
-  }
+  .student-photo, .student-photo-placeholder { width: 100%; min-height: 140px; height: 140px; }
 }
 
 @media (max-width: 480px) {
@@ -804,14 +612,14 @@ body::before {
 </head>
 <body>
 
+  <canvas id="bg-canvas"></canvas>
+
   <nav class="nav">
     <div class="nav-inner">
       <a href="index.html" class="nav-name">FLORES_LAB //</a>
       <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
         </svg>
       </button>
       <ul class="nav-links">
@@ -820,14 +628,13 @@ body::before {
         <li><a href="https://search.asu.edu/profile/3269825" target="_blank" rel="noopener">ASU Profile</a></li>
         <li><a href="https://scholar.google.com/citations?user=OSSzZk4AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
         <li><a href="https://bsky.app/profile/aaflores.bsky.social" target="_blank" rel="noopener">Bluesky</a></li>
-        <li><a href="files/Flores_CV.pdf" target="_blank" rel="noopener">CV</a></li>
+        <li><a href="files/CV_March_2026.pdf" target="_blank" rel="noopener">CV</a></li>
         <li><a href="https://thesanfordschool.asu.edu/data-devils" target="_blank" rel="noopener">Data Devils</a></li>
       </ul>
     </div>
   </nav>
 
   <main class="container">
-
     <div class="page-header">
       <h1>Students</h1>
       <p>Current PhD and masters students I advise or co-advise, along with recent alumni.</p>
@@ -840,87 +647,14 @@ body::before {
         <h2>Current Advisees</h2>
       </div>
       <div class="students-grid">
-
-        <div class="student-card">
-          <img src="images/sophiya.jpg" alt="Sophiya Gyanwali" class="student-photo">
-          <div class="student-info">
-            <h3 class="student-name">Sophiya Gyanwali</h3>
-            <p class="student-program">PhD Student in GIS</p>
-            <p class="student-committee">Committee: Dr. Aaron Flores (Chair), Dr. Dylan Connor, Dr. Sara Meerow</p>
-            <p class="student-bio">Sophiya is a social scientist and human geographer specializing in social vulnerability, urban development, and environmental justice in the context of flooding. She holds an M.S. in Geography from Virginia Tech and a B.S. in Environmental Science from Kathmandu University in Nepal. Her doctoral research investigates development patterns within FEMA-designated and federally-overlooked flood zones over time, examining the social determinants that drive these trends and their implications for vulnerable communities.</p>
-          </div>
-        </div>
-
-        <div class="student-card">
-          <img src="images/alamin.jpg" alt="Alamin Molla" class="student-photo">
-          <div class="student-info">
-            <h3 class="student-name">Alamin Molla</h3>
-            <p class="student-program">PhD Student in GIS</p>
-            <p class="student-committee">Committee: Dr. David Sailor (Co-Chair), Dr. Aaron Flores (Co-Chair), Dr. Heather Baier</p>
-            <p class="student-bio">Alamin is an urban scientist and geospatial data expert specializing in spatial data science, urban climate, and environmental justice. He holds an M.S. in Geoinformatics &amp; Geospatial Intelligence from George Mason University, an M.S. in Geography from Auburn University, and a B.S. in Urban and Rural Planning from Khulna University, Bangladesh. His doctoral research integrates GeoAI, UAV technology, and advanced geospatial methods to address urban challenges such as extreme heat, air quality, and climate resilience, with emphasis on inequalities in heat exposure among marginalized communities.</p>
-          </div>
-        </div>
-
-        <div class="student-card">
-          <img src="images/ritvik.jpg" alt="Ritvik Shukla" class="student-photo">
-          <div class="student-info">
-            <h3 class="student-name">Ritvik Shukla</h3>
-            <p class="student-program">PhD Candidate in Environmental Social Science</p>
-            <p class="student-committee">Committee: Dr. Abigail York (Chair), Dr. Danae Hernandez-Cortes, Dr. Kelli Larson, Dr. Aaron Flores</p>
-            <p class="student-bio">Ritvik is a just transition scientist with a particular interest in mixed methods research. He holds a B.S. in Environment and Natural Resources from Ohio State and an M.S. in Earth and Environmental Resources Management from the University of South Carolina. His dissertation examines the supply, demand, and governance of public electric vehicle charging infrastructure in Maricopa County, Arizona. He is also engaged in just transition work investigating the social and economic needs of communities impacted by coal plant closures in Arizona.</p>
-          </div>
-        </div>
-
-        <div class="student-card">
-          <img src="images/hyunho.png" alt="Hyunho Lee" class="student-photo">
-          <div class="student-info">
-            <h3 class="student-name">Hyunho Lee</h3>
-            <p class="student-program">PhD Candidate in Geography</p>
-            <p class="student-committee">Committee: Dr. WenWen Li (Chair), Dr. Aaron Flores, Dr. Hannah Kerner</p>
-            <p class="student-bio">Hyunho is a geospatial data scientist and GeoAI expert specializing in satellite-based environmental mapping. He holds an M.S. in Computer Science from KAIST (Korea Advanced Institute of Science and Technology) and a B.S. in Information and Computer Engineering from Ajou University, South Korea. His doctoral research focuses on deep learning for geospatial data, particularly satellite imagery, with an emphasis on model interpretability for intelligent environmental mapping and satellite-based flood extent mapping.</p>
-          </div>
-        </div>
-
-        <div class="student-card">
-          <img src="images/shaylynn.jpeg" alt="Shaylynn Trego" class="student-photo">
-          <div class="student-info">
-            <h3 class="student-name">Shaylynn Trego</h3>
-            <p class="student-program">PhD Candidate in Geography</p>
-            <p class="student-committee">Committee: Dr. Sara Meerow (Co-Chair), Dr. David Hondula (Co-Chair), Dr. Ladd Keith (U of Arizona), Dr. Aaron Flores</p>
-            <p class="student-bio">Shaylynn is an NSF GRFP and INTERN fellow committed to conducting socially relevant research on human-environment interactions, particularly how people can cope with increasingly extreme heat. Her work offers insights on different ways to communicate and visualize extreme heat risk, and many of her projects have been co-produced with city stakeholders. She aims to enhance understanding of how social and spatial inequalities in human-environment relationships affect well-being among disadvantaged groups.</p>
-          </div>
-        </div>
-
-        <div class="student-card">
-          <img src="images/consolata.jpg" alt="Consolata Macharia" class="student-photo">
-          <div class="student-info">
-            <h3 class="student-name">Consolata Macharia</h3>
-            <p class="student-program">PhD Student in Geography</p>
-            <p class="student-committee">Committee: Dr. Sara Meerow (Chair), Dr. Aaron Flores</p>
-            <p class="student-bio">Consolata is a human-environmental geographer whose research explores the intersections of urban climate resilience, green infrastructure planning, environmental justice, and urban climate governance. She examines how green infrastructure can serve as both a resilience strategy and a tool for advancing environmental justice, ensuring that historically marginalized communities are prioritized in urban adaptation efforts. Her work critically analyzes governance structures and policy frameworks to identify gaps perpetuating climate injustices.</p>
-          </div>
-        </div>
-
-        <div class="student-card">
-          <img src="images/leo.jpg" alt="Leonardo Prado" class="student-photo">
-          <div class="student-info">
-            <h3 class="student-name">Leonardo Prado</h3>
-            <p class="student-program">PhD Student in Geography</p>
-            <p class="student-committee">Committee: Dr. Jose-Benito Rosales Chavez (Co-Chair), Dr. Jenni Vanos (Co-Chair), Dr. Aaron Flores</p>
-            <p class="student-bio">Leonardo is an environmental social scientist and geographer specializing in urban climate, human thermal comfort, and environmental justice through the lens of Critical Physical Geography. He holds a master's degree in environmental planning and management from the Federal University of Rio de Janeiro, Brazil. His research integrates qualitative and quantitative methods to examine the heat exposure experienced by street vendors across Los Angeles, Mexico City, and S&atilde;o Paulo. He also collaborates with Indiana University, S&atilde;o Paulo State University (UNESP), and the National Integrated Heat Health Information System (NIHHIS).</p>
-          </div>
-        </div>
-
-        <div class="student-card">
-          <img src="images/mahin.jpg" alt="Mahin Rahman" class="student-photo">
-          <div class="student-info">
-            <h3 class="student-name">Mahin Rahman</h3>
-            <p class="student-program">Masters Student in Urban &amp; Environmental Planning</p>
-            <p class="student-committee">Committee: Dr. Sara Meerow (Chair), Dr. Aaron Flores, Dr. Daoqin Tong</p>
-            <p class="student-bio">Mahin is an urban planner and spatial data analyst focused on climate resilience, heat vulnerability, and environmental justice. He earned his B.S. in Urban and Regional Planning from Khulna University of Engineering and Technology, Bangladesh. His thesis explores how different environmental and social indicators influence spatial priorities for green infrastructure in Phoenix, including mean radiant temperature, land surface temperature, flood risk data, ecological variables, and the Social Vulnerability Index.</p>
-          </div>
-        </div>
-
+        <div class="student-card"><img src="images/sophiya.jpg" alt="Sophiya Gyanwali" class="student-photo"><div class="student-info"><h3 class="student-name">Sophiya Gyanwali</h3><p class="student-program">PhD Student in GIS</p><p class="student-committee">Committee: Dr. Aaron Flores (Chair), Dr. Dylan Connor, Dr. Sara Meerow</p><p class="student-bio">Sophiya is a social scientist and human geographer specializing in social vulnerability, urban development, and environmental justice in the context of flooding. She holds an M.S. in Geography from Virginia Tech and a B.S. in Environmental Science from Kathmandu University in Nepal. Her doctoral research investigates development patterns within FEMA-designated and federally-overlooked flood zones over time, examining the social determinants that drive these trends and their implications for vulnerable communities.</p></div></div>
+        <div class="student-card"><img src="images/alamin.jpg" alt="Alamin Molla" class="student-photo"><div class="student-info"><h3 class="student-name">Alamin Molla</h3><p class="student-program">PhD Student in GIS</p><p class="student-committee">Committee: Dr. David Sailor (Co-Chair), Dr. Aaron Flores (Co-Chair), Dr. Heather Baier</p><p class="student-bio">Alamin is an urban scientist and geospatial data expert specializing in spatial data science, urban climate, and environmental justice. He holds an M.S. in Geoinformatics &amp; Geospatial Intelligence from George Mason University, an M.S. in Geography from Auburn University, and a B.S. in Urban and Rural Planning from Khulna University, Bangladesh. His doctoral research integrates GeoAI, UAV technology, and advanced geospatial methods to address urban challenges such as extreme heat, air quality, and climate resilience, with emphasis on inequalities in heat exposure among marginalized communities.</p></div></div>
+        <div class="student-card"><img src="images/ritvik.jpg" alt="Ritvik Shukla" class="student-photo"><div class="student-info"><h3 class="student-name">Ritvik Shukla</h3><p class="student-program">PhD Candidate in Environmental Social Science</p><p class="student-committee">Committee: Dr. Abigail York (Chair), Dr. Danae Hernandez-Cortes, Dr. Kelli Larson, Dr. Aaron Flores</p><p class="student-bio">Ritvik is a just transition scientist with a particular interest in mixed methods research. He holds a B.S. in Environment and Natural Resources from Ohio State and an M.S. in Earth and Environmental Resources Management from the University of South Carolina. His dissertation examines the supply, demand, and governance of public electric vehicle charging infrastructure in Maricopa County, Arizona. He is also engaged in just transition work investigating the social and economic needs of communities impacted by coal plant closures in Arizona.</p></div></div>
+        <div class="student-card"><img src="images/hyunho.png" alt="Hyunho Lee" class="student-photo"><div class="student-info"><h3 class="student-name">Hyunho Lee</h3><p class="student-program">PhD Candidate in Geography</p><p class="student-committee">Committee: Dr. WenWen Li (Chair), Dr. Aaron Flores, Dr. Hannah Kerner</p><p class="student-bio">Hyunho is a geospatial data scientist and GeoAI expert specializing in satellite-based environmental mapping. He holds an M.S. in Computer Science from KAIST (Korea Advanced Institute of Science and Technology) and a B.S. in Information and Computer Engineering from Ajou University, South Korea. His doctoral research focuses on deep learning for geospatial data, particularly satellite imagery, with an emphasis on model interpretability for intelligent environmental mapping and satellite-based flood extent mapping.</p></div></div>
+        <div class="student-card"><img src="images/shaylynn.jpeg" alt="Shaylynn Trego" class="student-photo"><div class="student-info"><h3 class="student-name">Shaylynn Trego</h3><p class="student-program">PhD Candidate in Geography</p><p class="student-committee">Committee: Dr. Sara Meerow (Co-Chair), Dr. David Hondula (Co-Chair), Dr. Ladd Keith (U of Arizona), Dr. Aaron Flores</p><p class="student-bio">Shaylynn is an NSF GRFP and INTERN fellow committed to conducting socially relevant research on human-environment interactions, particularly how people can cope with increasingly extreme heat. Her work offers insights on different ways to communicate and visualize extreme heat risk, and many of her projects have been co-produced with city stakeholders. She aims to enhance understanding of how social and spatial inequalities in human-environment relationships affect well-being among disadvantaged groups.</p></div></div>
+        <div class="student-card"><img src="images/consolata.jpg" alt="Consolata Macharia" class="student-photo"><div class="student-info"><h3 class="student-name">Consolata Macharia</h3><p class="student-program">PhD Student in Geography</p><p class="student-committee">Committee: Dr. Sara Meerow (Chair), Dr. Aaron Flores</p><p class="student-bio">Consolata is a human-environmental geographer whose research explores the intersections of urban climate resilience, green infrastructure planning, environmental justice, and urban climate governance. She examines how green infrastructure can serve as both a resilience strategy and a tool for advancing environmental justice, ensuring that historically marginalized communities are prioritized in urban adaptation efforts. Her work critically analyzes governance structures and policy frameworks to identify gaps perpetuating climate injustices.</p></div></div>
+        <div class="student-card"><img src="images/leo.jpg" alt="Leonardo Prado" class="student-photo"><div class="student-info"><h3 class="student-name">Leonardo Prado</h3><p class="student-program">PhD Student in Geography</p><p class="student-committee">Committee: Dr. Jose-Benito Rosales Chavez (Co-Chair), Dr. Jenni Vanos (Co-Chair), Dr. Aaron Flores</p><p class="student-bio">Leonardo is an environmental social scientist and geographer specializing in urban climate, human thermal comfort, and environmental justice through the lens of Critical Physical Geography. He holds a master's degree in environmental planning and management from the Federal University of Rio de Janeiro, Brazil. His research integrates qualitative and quantitative methods to examine the heat exposure experienced by street vendors across Los Angeles, Mexico City, and S&atilde;o Paulo. He also collaborates with Indiana University, S&atilde;o Paulo State University (UNESP), and the National Integrated Heat Health Information System (NIHHIS).</p></div></div>
+        <div class="student-card"><img src="images/mahin.jpg" alt="Mahin Rahman" class="student-photo"><div class="student-info"><h3 class="student-name">Mahin Rahman</h3><p class="student-program">Masters Student in Urban &amp; Environmental Planning</p><p class="student-committee">Committee: Dr. Sara Meerow (Chair), Dr. Aaron Flores, Dr. Daoqin Tong</p><p class="student-bio">Mahin is an urban planner and spatial data analyst focused on climate resilience, heat vulnerability, and environmental justice. He earned his B.S. in Urban and Regional Planning from Khulna University of Engineering and Technology, Bangladesh. His thesis explores how different environmental and social indicators influence spatial priorities for green infrastructure in Phoenix, including mean radiant temperature, land surface temperature, flood risk data, ecological variables, and the Social Vulnerability Index.</p></div></div>
       </div>
     </section>
 
@@ -931,39 +665,189 @@ body::before {
         <h2>Alumni</h2>
       </div>
       <ul class="alumni-list">
-        <li class="alumni-item">
-          <span class="alumni-degree">MA</span>
-          <div>
-            <strong>Carson Metzler</strong> (Geography, 2023-2025)
-            <br><em style="color: var(--text-muted);">Sleeping in the Heat: Insights from the HeatSuite Phoenix Pilot Study</em>
-          </div>
-        </li>
-        <li class="alumni-item">
-          <span class="alumni-degree">MA</span>
-          <div>
-            <strong>Bradly Mannix</strong> (Geography, 2023-2025)
-            <br><em style="color: var(--text-muted);">Urban Food Equity: Addressing Food Diversity Disparities in HOLC Redlined Communities of Phoenix</em>
-          </div>
-        </li>
-        <li class="alumni-item">
-          <span class="alumni-degree">PhD</span>
-          <div>
-            <strong>Yilei Yu</strong> (GIS, 2023-2025)
-            <br><em style="color: var(--text-muted);">Spatial Data Science for Natural Hazards and the Built Environment</em>
-          </div>
-        </li>
+        <li class="alumni-item"><span class="alumni-degree">MA</span><div><strong>Carson Metzler</strong> (Geography, 2023-2025)<br><em style="color: var(--text-muted);">Sleeping in the Heat: Insights from the HeatSuite Phoenix Pilot Study</em></div></li>
+        <li class="alumni-item"><span class="alumni-degree">MA</span><div><strong>Bradly Mannix</strong> (Geography, 2023-2025)<br><em style="color: var(--text-muted);">Urban Food Equity: Addressing Food Diversity Disparities in HOLC Redlined Communities of Phoenix</em></div></li>
+        <li class="alumni-item"><span class="alumni-degree">PhD</span><div><strong>Yilei Yu</strong> (GIS, 2023-2025)<br><em style="color: var(--text-muted);">Spatial Data Science for Natural Hazards and the Built Environment</em></div></li>
       </ul>
     </section>
-
   </main>
 
   <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        &copy; 2025 Aaron Flores &middot; Arizona State University &middot; School of Geographical Sciences &amp; Urban Planning
-      </div>
-    </div>
+    <div class="container"><div class="footer-inner">&copy; 2025 Aaron Flores &middot; Arizona State University &middot; School of Geographical Sciences &amp; Urban Planning</div></div>
   </footer>
+
+  <script>
+(function() {
+  var canvas = document.getElementById('bg-canvas');
+  var ctx = canvas.getContext('2d');
+  var w, h, time = 0;
+  var mouse = { x: -1000, y: -1000 };
+  var pools = [];
+  var drops = [];
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+    createPools();
+  }
+
+  function createPools() {
+    pools = [];
+    var count = 12 + Math.floor(Math.random() * 8);
+    for (var i = 0; i < count; i++) {
+      pools.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        rx: 60 + Math.random() * 180,
+        ry: 30 + Math.random() * 80,
+        phase: Math.random() * Math.PI * 2,
+        breathSpeed: 0.3 + Math.random() * 0.5,
+        breathAmp: 0.06 + Math.random() * 0.1,
+        driftX: (Math.random() - 0.5) * 0.12,
+        driftY: 0.02 + Math.random() * 0.08,
+        rotation: Math.random() * Math.PI * 0.3 - 0.15,
+        alpha: 0.025 + Math.random() * 0.035,
+        color: pickColor()
+      });
+    }
+
+    drops = [];
+    for (var d = 0; d < 40; d++) {
+      drops.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 2 + Math.random() * 6,
+        rippleR: 0,
+        rippleMax: 20 + Math.random() * 40,
+        rippleSpeed: 0.3 + Math.random() * 0.4,
+        delay: Math.random() * 600,
+        timer: 0,
+        alpha: 0.04 + Math.random() * 0.06,
+        color: pickColor()
+      });
+    }
+  }
+
+  function pickColor() {
+    var r = Math.random();
+    if (r < 0.55) return [59, 159, 212];
+    if (r < 0.7) return [40, 120, 180];
+    if (r < 0.8) return [140, 29, 64];
+    if (r < 0.88) return [155, 111, 207];
+    if (r < 0.94) return [54, 181, 160];
+    return [255, 198, 39];
+  }
+
+  function draw() {
+    time++;
+    ctx.clearRect(0, 0, w, h);
+    var scrollY = window.pageYOffset || 0;
+
+    for (var i = 0; i < pools.length; i++) {
+      var p = pools[i];
+      var breath = 1 + Math.sin(time * 0.01 * p.breathSpeed + p.phase) * p.breathAmp;
+      var px = p.x + Math.sin(time * 0.003 + p.phase) * 15;
+      var py = p.y + time * p.driftY * 0.3 - scrollY * 0.03;
+
+      py = ((py % (h + 200)) + h + 200) % (h + 200) - 100;
+
+      var dx = mouse.x - px;
+      var dy = mouse.y - py;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      var expand = 1;
+      if (dist < 250) {
+        expand = 1 + (1 - dist / 250) * 0.4;
+      }
+
+      var crx = p.rx * breath * expand;
+      var cry = p.ry * breath * expand;
+
+      ctx.save();
+      ctx.translate(px, py);
+      ctx.rotate(p.rotation + Math.sin(time * 0.002 + p.phase) * 0.05);
+
+      var grad = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(crx, cry));
+      var c = p.color;
+      grad.addColorStop(0, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (p.alpha * 1.5) + ')');
+      grad.addColorStop(0.4, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (p.alpha * 0.8) + ')');
+      grad.addColorStop(0.7, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (p.alpha * 0.3) + ')');
+      grad.addColorStop(1, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',0)');
+
+      ctx.beginPath();
+      drawBlobEllipse(ctx, 0, 0, crx, cry, time * 0.008 + p.phase);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      ctx.beginPath();
+      drawBlobEllipse(ctx, 0, 0, crx * 0.7, cry * 0.7, time * 0.008 + p.phase + 1);
+      ctx.strokeStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (p.alpha * 0.6) + ')';
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    for (var d = 0; d < drops.length; d++) {
+      var dr = drops[d];
+      dr.timer++;
+      if (dr.timer < dr.delay) continue;
+
+      var localTime = dr.timer - dr.delay;
+      dr.rippleR += dr.rippleSpeed;
+
+      if (dr.rippleR > dr.rippleMax) {
+        dr.rippleR = 0;
+        dr.timer = 0;
+        dr.delay = 100 + Math.random() * 500;
+        dr.x = Math.random() * w;
+        dr.y = Math.random() * h;
+      }
+
+      var rippleAlpha = dr.alpha * (1 - dr.rippleR / dr.rippleMax);
+      var c = dr.color;
+
+      ctx.beginPath();
+      ctx.arc(dr.x, dr.y - scrollY * 0.01, dr.rippleR, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + rippleAlpha + ')';
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+
+      if (dr.rippleR > 8) {
+        ctx.beginPath();
+        ctx.arc(dr.x, dr.y - scrollY * 0.01, dr.rippleR * 0.5, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (rippleAlpha * 0.5) + ')';
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  function drawBlobEllipse(ctx, cx, cy, rx, ry, t) {
+    var steps = 60;
+    for (var i = 0; i <= steps; i++) {
+      var angle = (i / steps) * Math.PI * 2;
+      var noise1 = Math.sin(angle * 3 + t * 1.2) * 0.08;
+      var noise2 = Math.sin(angle * 5 + t * 0.7) * 0.05;
+      var noise3 = Math.sin(angle * 7 + t * 1.8) * 0.03;
+      var r = 1 + noise1 + noise2 + noise3;
+      var x = cx + Math.cos(angle) * rx * r;
+      var y = cy + Math.sin(angle) * ry * r;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+  }
+
+  window.addEventListener('resize', resize);
+  document.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+  document.addEventListener('mouseleave', function() { mouse.x = -1000; mouse.y = -1000; });
+
+  resize();
+  draw();
+})();
+</script>
 
 </body>
 </html>
