@@ -20,7 +20,6 @@
 }
 
 :root {
-  /* ASU identity */
   --asu-maroon: #8C1D40;
   --asu-maroon-deep: #6A1631;
   --asu-maroon-glow: rgba(140, 29, 64, 0.15);
@@ -30,41 +29,33 @@
   --asu-gold-glow: rgba(255, 198, 39, 0.12);
   --asu-gold-subtle: rgba(255, 198, 39, 0.06);
 
-  /* Core darks */
   --bg-deep: #0D0A0F;
   --bg-primary: #110E14;
   --bg-elevated: #181520;
   --bg-card: #1E1A27;
   --bg-card-hover: #252131;
 
-  /* Hazard palette */
   --flood-blue: #3B9FD4;
   --flood-blue-dim: #2678A3;
   --flood-blue-glow: rgba(59, 159, 212, 0.14);
-
   --health-purple: #9B6FCF;
   --health-purple-dim: #7B52B0;
   --health-purple-glow: rgba(155, 111, 207, 0.14);
-
   --heat-orange: #E8722A;
   --heat-red: #D94040;
   --heat-yellow: #F0B429;
-
   --safe-teal: #36B5A0;
   --safe-teal-dim: rgba(54, 181, 160, 0.12);
 
-  /* Text */
   --text-primary: #F0ECF2;
   --text-secondary: #A8A0B2;
   --text-muted: #6B6278;
   --text-accent: #FFC627;
 
-  /* Borders */
   --border: rgba(255, 255, 255, 0.06);
   --border-accent: rgba(140, 29, 64, 0.3);
   --border-gold: rgba(255, 198, 39, 0.2);
 
-  /* Fonts */
   --font-display: 'DM Serif Display', Georgia, serif;
   --font-body: 'IBM Plex Sans', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
@@ -77,7 +68,7 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.7;
   color: var(--text-primary);
   background: var(--bg-deep);
@@ -98,15 +89,12 @@ a:hover { color: #FFD75C; }
   color: white;
 }
 
-body::before {
-  content: '';
+/* ---- Interactive particle canvas ---- */
+#bg-canvas {
   position: fixed;
   inset: 0;
-  background-image:
-    radial-gradient(ellipse at 15% 30%, rgba(140, 29, 64, 0.06) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 70%, rgba(255, 198, 39, 0.03) 0%, transparent 50%);
-  pointer-events: none;
   z-index: 0;
+  pointer-events: none;
 }
 
 /* ---- Navigation ---- */
@@ -147,7 +135,7 @@ body::before {
 }
 
 .nav-links a {
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 500;
   color: var(--text-muted);
   letter-spacing: 0.02em;
@@ -199,7 +187,7 @@ body::before {
 
 .section-tag {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -217,7 +205,7 @@ body::before {
 
 .section-header h2 {
   font-family: var(--font-display);
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   font-weight: 400;
   color: var(--text-primary);
 }
@@ -230,23 +218,23 @@ body::before {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 240px 1fr;
   gap: 2.5rem;
   align-items: start;
 }
 
 .hero-photo {
-  width: 200px;
-  height: 240px;
-  border-radius: 8px;
+  width: 240px;
+  height: 300px;
+  border-radius: 10px;
   object-fit: cover;
   border: 2px solid var(--border-accent);
 }
 
 .hero-photo-placeholder {
-  width: 200px;
-  height: 240px;
-  border-radius: 8px;
+  width: 240px;
+  height: 300px;
+  border-radius: 10px;
   background: var(--bg-card);
   border: 2px solid var(--border-accent);
   display: flex;
@@ -271,8 +259,8 @@ body::before {
 
 .hero-coords {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--text-muted);
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
   margin-top: 8px;
   text-align: center;
   letter-spacing: 0.04em;
@@ -280,14 +268,14 @@ body::before {
 
 .hero-text h1 {
   font-family: var(--font-display);
-  font-size: 2.5rem;
+  font-size: 2.75rem;
   font-weight: 400;
   line-height: 1.15;
   margin-bottom: 0.35rem;
 }
 
 .hero-title-line {
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: #E0758E;
   background: var(--asu-maroon-glow);
@@ -298,18 +286,38 @@ body::before {
 }
 
 .hero-dept {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   color: var(--text-secondary);
   margin-bottom: 1.25rem;
 }
 
 .hero-bio {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
   line-height: 1.8;
-  max-width: 640px;
+  max-width: 660px;
 }
 .hero-bio + .hero-bio { margin-top: 0.75rem; }
+
+/* ---- Affiliation logos ---- */
+.affiliation-logos {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.affiliation-logos img {
+  height: 50px;
+  width: auto;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.affiliation-logos img:hover {
+  opacity: 1;
+}
 
 /* ---- Stat strip ---- */
 .stat-strip {
@@ -331,7 +339,7 @@ body::before {
 
 .stat-value {
   font-family: var(--font-mono);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 500;
   color: var(--text-primary);
 }
@@ -343,7 +351,7 @@ body::before {
 .stat-value.purple { color: var(--health-purple); }
 
 .stat-label {
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -363,7 +371,7 @@ body::before {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 500;
   padding: 7px 14px;
   border-radius: 6px;
@@ -410,141 +418,61 @@ body::before {
 }
 
 .research-card-accent { height: 4px; }
-.research-card-accent.flood {
-  background: linear-gradient(90deg, var(--flood-blue) 0%, var(--flood-blue-dim) 100%);
-}
-.research-card-accent.health {
-  background: linear-gradient(90deg, var(--health-purple) 0%, var(--health-purple-dim) 100%);
-}
-.research-card-accent.heat {
-  background: linear-gradient(90deg, var(--heat-red) 0%, var(--heat-orange) 50%, var(--heat-yellow) 100%);
-}
-.research-card-accent.air {
-  background: linear-gradient(90deg, var(--safe-teal) 0%, #2A8F7E 100%);
-}
-.research-card-accent.asu {
-  background: linear-gradient(90deg, var(--asu-maroon) 0%, var(--asu-gold) 100%);
-}
+.research-card-accent.flood { background: linear-gradient(90deg, var(--flood-blue) 0%, var(--flood-blue-dim) 100%); }
+.research-card-accent.health { background: linear-gradient(90deg, var(--health-purple) 0%, var(--health-purple-dim) 100%); }
+.research-card-accent.heat { background: linear-gradient(90deg, var(--heat-red) 0%, var(--heat-orange) 50%, var(--heat-yellow) 100%); }
+.research-card-accent.air { background: linear-gradient(90deg, var(--safe-teal) 0%, #2A8F7E 100%); }
+.research-card-accent.asu { background: linear-gradient(90deg, var(--asu-maroon) 0%, var(--asu-gold) 100%); }
 
-.research-card-body {
-  padding: 1.5rem 1.75rem;
-}
+.research-card-body { padding: 1.5rem 1.75rem; }
 
 .research-card-body h3 {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 400;
   color: var(--text-primary);
   margin-bottom: 0.6rem;
 }
 
 .research-card-body p {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   color: var(--text-secondary);
   line-height: 1.75;
 }
 .research-card-body p + p { margin-top: 0.6rem; }
 
-.research-card-img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-}
+.research-card-img { width: 100%; height: 220px; object-fit: cover; }
 
-.research-img-placeholder {
-  width: 100%;
-  overflow: hidden;
-}
-.research-img-placeholder svg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
+.research-img-placeholder { width: 100%; overflow: hidden; }
+.research-img-placeholder svg { width: 100%; height: auto; display: block; }
 
-.pub-links {
-  margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
+.pub-links { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
 .pub-link {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 500;
   padding: 5px 12px;
   border-radius: 5px;
   transition: all 0.2s;
 }
 
-.pub-link.flood-link {
-  background: var(--flood-blue-glow);
-  color: var(--flood-blue);
-  border: 1px solid rgba(59, 159, 212, 0.2);
-}
-.pub-link.flood-link:hover {
-  background: var(--flood-blue);
-  color: white;
-  border-color: var(--flood-blue);
-}
-
-.pub-link.health-link {
-  background: var(--health-purple-glow);
-  color: var(--health-purple);
-  border: 1px solid rgba(155, 111, 207, 0.2);
-}
-.pub-link.health-link:hover {
-  background: var(--health-purple);
-  color: white;
-  border-color: var(--health-purple);
-}
-
-.pub-link.heat-link {
-  background: rgba(232, 114, 42, 0.1);
-  color: var(--heat-orange);
-  border: 1px solid rgba(232, 114, 42, 0.2);
-}
-.pub-link.heat-link:hover {
-  background: var(--heat-orange);
-  color: white;
-  border-color: var(--heat-orange);
-}
-
-.pub-link.teal-link {
-  background: var(--safe-teal-dim);
-  color: var(--safe-teal);
-  border: 1px solid rgba(54, 181, 160, 0.2);
-}
-.pub-link.teal-link:hover {
-  background: var(--safe-teal);
-  color: white;
-  border-color: var(--safe-teal);
-}
+.pub-link.flood-link { background: var(--flood-blue-glow); color: var(--flood-blue); border: 1px solid rgba(59, 159, 212, 0.2); }
+.pub-link.flood-link:hover { background: var(--flood-blue); color: white; border-color: var(--flood-blue); }
+.pub-link.health-link { background: var(--health-purple-glow); color: var(--health-purple); border: 1px solid rgba(155, 111, 207, 0.2); }
+.pub-link.health-link:hover { background: var(--health-purple); color: white; border-color: var(--health-purple); }
+.pub-link.heat-link { background: rgba(232, 114, 42, 0.1); color: var(--heat-orange); border: 1px solid rgba(232, 114, 42, 0.2); }
+.pub-link.heat-link:hover { background: var(--heat-orange); color: white; border-color: var(--heat-orange); }
+.pub-link.teal-link { background: var(--safe-teal-dim); color: var(--safe-teal); border: 1px solid rgba(54, 181, 160, 0.2); }
+.pub-link.teal-link:hover { background: var(--safe-teal); color: white; border-color: var(--safe-teal); }
 
 /* ---- Two-column editorial ---- */
-.editorial-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
+.editorial-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 
 /* ---- Data callout ---- */
-.data-callout {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 4px;
-  margin: 0.5rem 0;
-}
-.data-callout .data-num {
-  font-family: var(--font-mono);
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: var(--health-purple);
-}
-.data-callout .data-unit {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
+.data-callout { display: inline-flex; align-items: baseline; gap: 4px; margin: 0.5rem 0; }
+.data-callout .data-num { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 500; color: var(--health-purple); }
+.data-callout .data-unit { font-size: 0.85rem; color: var(--text-muted); }
 
 /* ---- Community card ---- */
 .community-card {
@@ -562,30 +490,14 @@ body::before {
   height: 4px;
   background: linear-gradient(90deg, var(--asu-maroon) 0%, var(--asu-gold) 100%);
 }
-.community-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 400;
-  color: var(--text-primary);
-  margin-bottom: 0.6rem;
-}
-.community-card p {
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  line-height: 1.75;
-}
+.community-card h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 400; color: var(--text-primary); margin-bottom: 0.6rem; }
+.community-card p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.75; }
 .community-card p + p { margin-top: 0.6rem; }
 
-.media-links {
-  margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
+.media-links { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .media-link {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 500;
   padding: 5px 12px;
   border-radius: 5px;
@@ -594,30 +506,14 @@ body::before {
   border: 1px solid var(--border-gold);
   transition: all 0.2s;
 }
-.media-link:hover {
-  background: var(--asu-gold);
-  color: #1A1400;
-  border-color: var(--asu-gold);
-}
+.media-link:hover { background: var(--asu-gold); color: #1A1400; border-color: var(--asu-gold); }
 
 /* ---- Students ---- */
 .page-header { padding: 3rem 0 1rem; }
-.page-header h1 {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 400;
-}
-.page-header p {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  margin-top: 0.4rem;
-}
+.page-header h1 { font-family: var(--font-display); font-size: 2.1rem; font-weight: 400; }
+.page-header p { font-size: 0.95rem; color: var(--text-secondary); margin-top: 0.4rem; }
 
-.students-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-}
+.students-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
 
 .student-card {
   background: var(--bg-card);
@@ -627,131 +523,56 @@ body::before {
   display: flex;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
-.student-card:hover {
-  border-color: var(--border-accent);
-  box-shadow: 0 4px 24px rgba(140, 29, 64, 0.06);
-}
+.student-card:hover { border-color: var(--border-accent); box-shadow: 0 4px 24px rgba(140, 29, 64, 0.06); }
 
-.student-photo {
-  width: 180px;
-  min-height: 220px;
-  object-fit: cover;
-  flex-shrink: 0;
-}
+.student-photo { width: 180px; min-height: 220px; object-fit: cover; flex-shrink: 0; }
 .student-photo-placeholder {
-  width: 180px;
-  min-height: 220px;
-  flex-shrink: 0;
+  width: 180px; min-height: 220px; flex-shrink: 0;
   background: var(--bg-elevated);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 1.5rem; color: var(--text-muted);
   position: relative;
 }
 .student-photo-placeholder::after {
-  content: '';
-  position: absolute;
-  inset: 0;
+  content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, transparent 50%, var(--asu-maroon-subtle) 100%);
 }
 
-.student-info {
-  padding: 1.25rem 1.5rem;
-  flex: 1;
-}
-.student-name {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: var(--text-primary);
-  margin-bottom: 0.2rem;
-}
-.student-program {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--asu-gold);
-  margin-bottom: 0.15rem;
-}
-.student-committee {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-bottom: 0.65rem;
-}
-.student-bio {
-  font-size: 0.84rem;
-  color: var(--text-secondary);
-  line-height: 1.75;
-}
+.student-info { padding: 1.25rem 1.5rem; flex: 1; }
+.student-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--text-primary); margin-bottom: 0.2rem; }
+.student-program { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; color: var(--asu-gold); margin-bottom: 0.15rem; }
+.student-committee { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.65rem; }
+.student-bio { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.75; }
 
 /* Alumni */
 .alumni-section { padding: 2.5rem 0 3.5rem; }
-
-.alumni-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
+.alumni-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
 .alumni-item {
-  display: flex;
-  gap: 0.75rem;
-  align-items: baseline;
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  padding: 10px 14px;
-  background: var(--bg-card);
-  border-radius: 8px;
-  border: 1px solid var(--border);
+  display: flex; gap: 0.75rem; align-items: baseline;
+  font-size: 0.92rem; color: var(--text-secondary);
+  padding: 10px 14px; background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border);
 }
-.alumni-item strong {
-  color: var(--text-primary);
-  font-weight: 600;
-}
+.alumni-item strong { color: var(--text-primary); font-weight: 600; }
 .alumni-degree {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 500;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: var(--asu-maroon-glow);
-  color: #E0758E;
-  white-space: nowrap;
+  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500;
+  padding: 2px 8px; border-radius: 4px;
+  background: var(--asu-maroon-glow); color: #E0758E; white-space: nowrap;
 }
 
 /* ---- Footer ---- */
-.footer {
-  border-top: 1px solid var(--border);
-  padding: 2rem 0;
-  text-align: center;
-}
-.footer-inner {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  letter-spacing: 0.02em;
-}
+.footer { border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; }
+.footer-inner { font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 0.02em; }
 .footer a { color: var(--text-muted); }
 .footer a:hover { color: var(--asu-gold); }
-
 .footer::before {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 3px;
+  content: ''; display: block; width: 60px; height: 3px;
   background: linear-gradient(90deg, var(--asu-maroon), var(--asu-gold));
-  border-radius: 2px;
-  margin: 0 auto 1.25rem;
+  border-radius: 2px; margin: 0 auto 1.25rem;
 }
 
 /* ---- Dashed grid line ---- */
 .grid-line {
-  width: 100%;
-  height: 1px;
+  width: 100%; height: 1px;
   background: repeating-linear-gradient(90deg, var(--border) 0px, var(--border) 4px, transparent 4px, transparent 8px);
   margin: 0.5rem 0;
 }
@@ -759,40 +580,27 @@ body::before {
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
   .nav-links {
-    display: none;
-    position: absolute;
-    top: var(--nav-height);
-    left: 0; right: 0;
-    background: rgba(13, 10, 15, 0.95);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    flex-direction: column;
-    padding: 1rem 1.5rem;
-    gap: 0.75rem;
+    display: none; position: absolute; top: var(--nav-height); left: 0; right: 0;
+    background: rgba(13, 10, 15, 0.95); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border); flex-direction: column; padding: 1rem 1.5rem; gap: 0.75rem;
   }
   .nav-links.open { display: flex; }
   .nav-toggle { display: block; }
   .nav-inner { position: relative; }
 
-  .hero-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
+  .hero-grid { grid-template-columns: 1fr; text-align: center; }
   .hero-photo-col { justify-self: center; }
-  .hero-photo, .hero-photo-placeholder { width: 160px; height: 190px; }
+  .hero-photo, .hero-photo-placeholder { width: 180px; height: 220px; }
   .hero-bio { max-width: 100%; }
   .stat-strip { max-width: 100%; }
   .pill-row { justify-content: center; }
-  .hero-text h1 { font-size: 1.8rem; }
+  .hero-text h1 { font-size: 2rem; }
+  .affiliation-logos { justify-content: center; }
 
   .editorial-row { grid-template-columns: 1fr; }
 
   .student-card { flex-direction: column; }
-  .student-photo, .student-photo-placeholder {
-    width: 100%;
-    min-height: 140px;
-    height: 140px;
-  }
+  .student-photo, .student-photo-placeholder { width: 100%; min-height: 140px; height: 140px; }
 }
 
 @media (max-width: 480px) {
@@ -803,6 +611,8 @@ body::before {
 </style>
 </head>
 <body>
+
+  <canvas id="bg-canvas"></canvas>
 
   <!-- Navigation -->
   <nav class="nav">
@@ -821,7 +631,7 @@ body::before {
         <li><a href="https://search.asu.edu/profile/3269825" target="_blank" rel="noopener">ASU Profile</a></li>
         <li><a href="https://scholar.google.com/citations?user=OSSzZk4AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
         <li><a href="https://bsky.app/profile/aaflores.bsky.social" target="_blank" rel="noopener">Bluesky</a></li>
-        <li><a href="files/CV March 2026.pdf" target="_blank" rel="noopener">CV</a></li>
+        <li><a href="files/CV_March_2026.pdf" target="_blank" rel="noopener">CV</a></li>
         <li><a href="https://thesanfordschool.asu.edu/data-devils" target="_blank" rel="noopener">Data Devils</a></li>
       </ul>
     </div>
@@ -848,6 +658,11 @@ body::before {
             I earned my B.A. and M.S. in Geography from Texas Tech University and completed my PhD at the University of Utah. My research has been funded by the National Science Foundation and the Ford Foundation. I teach courses in GIS, environmental justice, and statistics, and I am deeply committed to mentoring students. Outside of academia, you can usually find me hanging out with my dogs by the pool, watching sports, or grilling.
           </p>
 
+          <div class="affiliation-logos">
+            <a href="https://sgsup.asu.edu" target="_blank" rel="noopener"><img src="images/SGSUP_Logo.png" alt="ASU School of Geographical Sciences and Urban Planning"></a>
+            <a href="https://thesanfordschool.asu.edu/data-devils" target="_blank" rel="noopener"><img src="images/DD_logo.PNG" alt="Data Devils"></a>
+          </div>
+
           <div class="stat-strip">
             <div class="stat-item">
               <div class="stat-value gold">NSF</div>
@@ -868,13 +683,13 @@ body::before {
           </div>
 
           <div class="pill-row">
-            <a href="mailto:aaron.b.flores@asu.edu" class="pill pill-accent">
+            <a href="/cdn-cgi/l/email-protection#99f8f8ebf6f7b7fbb7fff5f6ebfcead9f8eaecb7fcfdec" class="pill pill-accent">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
-              aaron.b.flores@asu.edu
+              <span class="__cf_email__" data-cfemail="5d3c3c2f3233733f733b31322f382e1d3c2e2873383928">[email&#160;protected]</span>
             </a>
             <a href="https://scholar.google.com/citations?user=OSSzZk4AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener" class="pill">Google Scholar</a>
             <a href="https://bsky.app/profile/aaflores.bsky.social" target="_blank" rel="noopener" class="pill">Bluesky</a>
-            <a href="files/CV March 2026.pdf" target="_blank" rel="noopener" class="pill">
+            <a href="files/CV_March_2026.pdf" target="_blank" rel="noopener" class="pill">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
               CV
             </a>
@@ -892,7 +707,6 @@ body::before {
       <div class="research-grid">
         <div class="research-card">
           <div class="research-card-accent flood"></div>
-          <!-- Replace with your research map when ready: <img src="images/flood-risk.jpg" alt="Flood risk map of the U.S." class="research-card-img"> -->
           <div class="research-img-placeholder flood-placeholder">
             <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
               <rect width="800" height="200" fill="#0E1A24"/>
@@ -910,38 +724,27 @@ body::before {
           </div>
           <div class="research-card-body">
             <h3>Federally-Overlooked 100-Year Flood Zones in the U.S.</h3>
-            <p>
-              My main current research area focuses on federally-overlooked 100-year flood risk inequities in the Conterminous United States. These are flood zones that are not identified in federal flood risk assessments. This work utilizes dasymetric mapping, flood risk data from <a href="https://www.fathom.global/" target="_blank" rel="noopener">Fathom</a> and the Federal Emergency Management Agency (FEMA), as well as sociodemographic data from the American Community Survey.
-            </p>
+            <p>My main current research area focuses on federally-overlooked 100-year flood risk inequities in the Conterminous United States. These are flood zones that are not identified in federal flood risk assessments. This work utilizes dasymetric mapping, flood risk data from <a href="https://www.fathom.global/" target="_blank" rel="noopener">Fathom</a> and the Federal Emergency Management Agency (FEMA), as well as sociodemographic data from the American Community Survey.</p>
             <div class="pub-links">
               <a href="https://doi.org/10.1038/s41598-025-95120-9" target="_blank" rel="noopener" class="pub-link flood-link">Flores et al. 2025 &rarr;</a>
             </div>
           </div>
         </div>
-
         <div class="editorial-row">
           <div class="research-card">
             <div class="research-card-accent flood"></div>
             <div class="research-card-body">
               <h3>Building Quality in Overlooked Zones</h3>
-              <p>
-                Former ASU PhD student Yilei Yu (now a postdoc at Rice University) led a study showing that buildings in federally-overlooked flood zones are of lower quality and condition than buildings in FEMA flood zones in Greater Houston.
-              </p>
-              <div class="pub-links">
-                <a href="https://doi.org/10.1007/s11111-025-00485-8" target="_blank" rel="noopener" class="pub-link flood-link">Yu et al. 2025 &rarr;</a>
-              </div>
+              <p>Former ASU PhD student Yilei Yu (now a postdoc at Rice University) led a study showing that buildings in federally-overlooked flood zones are of lower quality and condition than buildings in FEMA flood zones in Greater Houston.</p>
+              <div class="pub-links"><a href="https://doi.org/10.1007/s11111-025-00485-8" target="_blank" rel="noopener" class="pub-link flood-link">Yu et al. 2025 &rarr;</a></div>
             </div>
           </div>
           <div class="research-card">
             <div class="research-card-accent flood"></div>
             <div class="research-card-body">
               <h3>FEMA Underprediction in Utah</h3>
-              <p>
-                University of Utah PhD student Austin Clark led a study showing that FEMA may underpredict flood risks to residential properties in Utah by <strong style="color: var(--flood-blue); font-family: var(--font-mono);">13&times;</strong>.
-              </p>
-              <div class="pub-links">
-                <a href="https://doi.org/10.1016/j.ijdrr.2025.105247" target="_blank" rel="noopener" class="pub-link flood-link">Clark et al. 2025 &rarr;</a>
-              </div>
+              <p>University of Utah PhD student Austin Clark led a study showing that FEMA may underpredict flood risks to residential properties in Utah by <strong style="color: var(--flood-blue); font-family: var(--font-mono);">13&times;</strong>.</p>
+              <div class="pub-links"><a href="https://doi.org/10.1016/j.ijdrr.2025.105247" target="_blank" rel="noopener" class="pub-link flood-link">Clark et al. 2025 &rarr;</a></div>
             </div>
           </div>
         </div>
@@ -956,7 +759,6 @@ body::before {
       </div>
       <div class="research-card">
         <div class="research-card-accent health"></div>
-        <!-- Replace: <img src="images/health-flooding.jpg" alt="Health impacts of flooding research" class="research-card-img"> -->
         <div class="research-img-placeholder health-placeholder">
           <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
             <rect width="800" height="200" fill="#140E1E"/>
@@ -972,19 +774,10 @@ body::before {
         </div>
         <div class="research-card-body">
           <h3>Mortality and Large Floods</h3>
-          <p>
-            During my PhD at the University of Utah, I conducted extensive work on the physical and mental health impacts of Hurricane Harvey, highlighting disproportionate impacts on racial/ethnic minorities and those of low socioeconomic status in Greater Houston.
-          </p>
-          <p>
-            More recent work in collaboration with researchers at Columbia University, Harvard, and the University of Arizona analyzes <strong style="color: var(--text-primary); font-family: var(--font-mono);">35.6 million</strong> death records spanning the past two decades. The study reveals that large floods were linked to up to a
-          </p>
-          <div class="data-callout">
-            <span class="data-num">24.9%</span>
-            <span class="data-unit">rise in deaths from major causes</span>
-          </div>
-          <p>
-            including cardiovascular disease, infectious diseases, and injuries, even in non-hurricane-related floods caused by heavy rain, snowmelt, or ice jams. I have also conducted a review paper examining differential impacts in physical and mental health outcomes while assessing methodological considerations across the literature on flooding and health in the U.S.
-          </p>
+          <p>During my PhD at the University of Utah, I conducted extensive work on the physical and mental health impacts of Hurricane Harvey, highlighting disproportionate impacts on racial/ethnic minorities and those of low socioeconomic status in Greater Houston.</p>
+          <p>More recent work in collaboration with researchers at Columbia University, Harvard, and the University of Arizona analyzes <strong style="color: var(--text-primary); font-family: var(--font-mono);">35.6 million</strong> death records spanning the past two decades. The study reveals that large floods were linked to up to a</p>
+          <div class="data-callout"><span class="data-num">24.9%</span><span class="data-unit">rise in deaths from major causes</span></div>
+          <p>including cardiovascular disease, infectious diseases, and injuries, even in non-hurricane-related floods caused by heavy rain, snowmelt, or ice jams. I have also conducted a review paper examining differential impacts in physical and mental health outcomes while assessing methodological considerations across the literature on flooding and health in the U.S.</p>
           <div class="pub-links">
             <a href="https://doi.org/10.1038/s41591-024-03358-z" target="_blank" rel="noopener" class="pub-link health-link">Nature Medicine 2024 &rarr;</a>
             <a href="https://doi.org/10.1007/s40572-024-00446-7" target="_blank" rel="noopener" class="pub-link health-link">Review Paper &rarr;</a>
@@ -1001,7 +794,6 @@ body::before {
       </div>
       <div class="research-card">
         <div class="research-card-accent heat"></div>
-        <!-- Replace: <img src="images/extreme-heat.jpg" alt="Extreme heat research" class="research-card-img"> -->
         <div class="research-img-placeholder heat-placeholder">
           <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
             <rect width="800" height="200" fill="#1A120A"/>
@@ -1021,9 +813,7 @@ body::before {
         </div>
         <div class="research-card-body">
           <h3>Neighborhood-Level Heat Inequities</h3>
-          <p>
-            I have examined inequitable exposure to extreme heat at the neighborhood level using Landsat satellite imagery and air temperature data in places such as Phoenix, AZ, Lubbock, TX, and the Northeastern United States. This research has consistently observed that neighborhoods with higher percentages of racial/ethnic minorities and those of low socioeconomic status experience disproportionate exposure to elevated temperatures. I am also increasingly interested in other metrics and devices to examine heat, such as mean radiant temperature and sensor technologies.
-          </p>
+          <p>I have examined inequitable exposure to extreme heat at the neighborhood level using Landsat satellite imagery and air temperature data in places such as Phoenix, AZ, Lubbock, TX, and the Northeastern United States. This research has consistently observed that neighborhoods with higher percentages of racial/ethnic minorities and those of low socioeconomic status experience disproportionate exposure to elevated temperatures. I am also increasingly interested in other metrics and devices to examine heat, such as mean radiant temperature and sensor technologies.</p>
           <div class="pub-links">
             <a href="https://doi.org/10.1016/j.uclim.2024.102276" target="_blank" rel="noopener" class="pub-link heat-link">Phoenix, AZ &rarr;</a>
             <a href="https://doi.org/10.1016/j.envres.2021.111805" target="_blank" rel="noopener" class="pub-link heat-link">Northeastern U.S. &rarr;</a>
@@ -1040,7 +830,6 @@ body::before {
       </div>
       <div class="research-card">
         <div class="research-card-accent air"></div>
-        <!-- Replace: <img src="images/air-quality.jpg" alt="Air quality monitoring" class="research-card-img"> -->
         <div class="research-img-placeholder air-placeholder">
           <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
             <rect width="800" height="200" fill="#0A1614"/>
@@ -1062,9 +851,7 @@ body::before {
         </div>
         <div class="research-card-body">
           <h3>PurpleAir Sensor Inequities</h3>
-          <p>
-            I have collaborated on projects focused on social inequalities in the distribution of PurpleAir sensors (a non-governmental air quality monitoring network) in Los Angeles County, California, and Phoenix, Arizona. This work indicates that neighborhoods with higher percentages of Hispanic/Latinx, Black, and low-income residents have reduced access to information about local air pollution. The near real-time, high spatial resolution pollution estimates provided by PurpleAir can help the public stay informed about their local air quality, which may help them make routine and/or protective decisions to lessen their exposures. While people seek to use citizen science to equalize environmental knowledge, the self-organizing nature of non-governmental air quality monitoring networks can be exclusionary and may reproduce patterns of environmental injustice.
-          </p>
+          <p>I have collaborated on projects focused on social inequalities in the distribution of PurpleAir sensors (a non-governmental air quality monitoring network) in Los Angeles County, California, and Phoenix, Arizona. This work indicates that neighborhoods with higher percentages of Hispanic/Latinx, Black, and low-income residents have reduced access to information about local air pollution. The near real-time, high spatial resolution pollution estimates provided by PurpleAir can help the public stay informed about their local air quality, which may help them make routine and/or protective decisions to lessen their exposures. While people seek to use citizen science to equalize environmental knowledge, the self-organizing nature of non-governmental air quality monitoring networks can be exclusionary and may reproduce patterns of environmental injustice.</p>
         </div>
       </div>
     </section>
@@ -1076,7 +863,6 @@ body::before {
         <h2>Community-Engaged Research</h2>
       </div>
       <div class="community-card">
-        <!-- Replace: <img src="images/food-insecurity.jpg" alt="Food insecurity rates in Arizona" class="research-card-img" style="border-radius: 8px; margin-bottom: 1rem;"> -->
         <div class="research-img-placeholder community-placeholder" style="margin: -1.75rem -1.75rem 1.25rem; border-radius: 10px 10px 0 0; overflow: hidden;">
           <svg viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
             <rect width="800" height="180" fill="#1A1508"/>
@@ -1098,12 +884,8 @@ body::before {
           </svg>
         </div>
         <h3>St. Mary's Food Bank + ASU</h3>
-        <p>
-          In 2024, my colleagues and I started a partnership with St. Mary's Food Bank, where we co-developed an interactive GIS dashboard to support data-driven strategies for addressing food insecurity across Arizona. As part of this collaboration, I co-mentor undergraduate and graduate students alongside Connor Sheehan (School of Social and Family Dynamics) and Christina Ngo (Office of University Affairs). Together, we train students in spatial and statistical analysis, research design, and manuscript preparation.
-        </p>
-        <p>
-          We work closely with food bank leadership to co-produce research questions, brainstorm project ideas, and create data visualizations. This collaboration also led to the creation of the <a href="https://thesanfordschool.asu.edu/data-devils" target="_blank" rel="noopener">Data Devils</a> program, which I co-founded with Sheehan and Ngo. Data Devils provides graduate students with hands-on training in data analytics and community-engaged research.
-        </p>
+        <p>In 2024, my colleagues and I started a partnership with St. Mary's Food Bank, where we co-developed an interactive GIS dashboard to support data-driven strategies for addressing food insecurity across Arizona. As part of this collaboration, I co-mentor undergraduate and graduate students alongside Connor Sheehan (School of Social and Family Dynamics) and Christina Ngo (Office of University Affairs). Together, we train students in spatial and statistical analysis, research design, and manuscript preparation.</p>
+        <p>We work closely with food bank leadership to co-produce research questions, brainstorm project ideas, and create data visualizations. This collaboration also led to the creation of the <a href="https://thesanfordschool.asu.edu/data-devils" target="_blank" rel="noopener">Data Devils</a> program, which I co-founded with Sheehan and Ngo. Data Devils provides graduate students with hands-on training in data analytics and community-engaged research.</p>
         <div class="media-links">
           <a href="https://news.asu.edu/20241206-science-and-technology-asu-partners-st-marys-food-bank-develop-innovative-dashboard" target="_blank" rel="noopener" class="media-link">ASU News &rarr;</a>
           <a href="https://www.route-fifty.com/management/2025/06/food-insecurity-creeps-data-helps-food-banks-cater-those-need/405891/" target="_blank" rel="noopener" class="media-link">Route Fifty &rarr;</a>
@@ -1116,11 +898,279 @@ body::before {
 
   <footer class="footer">
     <div class="container">
-      <div class="footer-inner">
-        &copy; 2025 Aaron Flores &middot; Arizona State University &middot; School of Geographical Sciences &amp; Urban Planning
-      </div>
+      <div class="footer-inner">&copy; 2025 Aaron Flores &middot; Arizona State University &middot; School of Geographical Sciences &amp; Urban Planning</div>
     </div>
   </footer>
 
-</body>
-</html>
+  <!-- Interactive flood-line background -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function() {
+  var canvas = document.getElementById('bg-canvas');
+  var ctx = canvas.getContext('2d');
+  var w, h, time = 0;
+  var mouse = { x: -1000, y: -1000 };
+  var pools = [];
+  var drops = [];
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+    createPools();
+  }
+
+  function createPools() {
+    pools = [];
+    var count = 12 + Math.floor(Math.random() * 8);
+    for (var i = 0; i < count; i++) {
+      pools.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        rx: 60 + Math.random() * 180,
+        ry: 30 + Math.random() * 80,
+        phase: Math.random() * Math.PI * 2,
+        breathSpeed: 0.3 + Math.random() * 0.5,
+        breathAmp: 0.06 + Math.random() * 0.1,
+        driftX: (Math.random() - 0.5) * 0.12,
+        driftY: 0.02 + Math.random() * 0.08,
+        rotation: Math.random() * Math.PI * 0.3 - 0.15,
+        alpha: 0.025 + Math.random() * 0.035,
+        color: pickColor()
+      });
+    }
+
+    drops = [];
+    for (var d = 0; d < 40; d++) {
+      drops.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 2 + Math.random() * 6,
+        rippleR: 0,
+        rippleMax: 20 + Math.random() * 40,
+        rippleSpeed: 0.3 + Math.random() * 0.4,
+        delay: Math.random() * 600,
+        timer: 0,
+        alpha: 0.04 + Math.random() * 0.06,
+        color: pickColor()
+      });
+    }
+  }
+
+  function pickColor() {
+    var r = Math.random();
+    if (r < 0.55) return [59, 159, 212];
+    if (r < 0.7) return [40, 120, 180];
+    if (r < 0.8) return [140, 29, 64];
+    if (r < 0.88) return [155, 111, 207];
+    if (r < 0.94) return [54, 181, 160];
+    return [255, 198, 39];
+  }
+
+  function draw() {
+    time++;
+    ctx.clearRect(0, 0, w, h);
+    var scrollY = window.pageYOffset || 0;
+
+    for (var i = 0; i < pools.length; i++) {
+      var p = pools[i];
+      var breath = 1 + Math.sin(time * 0.01 * p.breathSpeed + p.phase) * p.breathAmp;
+      var px = p.x + Math.sin(time * 0.003 + p.phase) * 15;
+      var py = p.y + time * p.driftY * 0.3 - scrollY * 0.03;
+
+      py = ((py % (h + 200)) + h + 200) % (h + 200) - 100;
+
+      var dx = mouse.x - px;
+      var dy = mouse.y - py;
+      var dist = Math.sqrt(dx * dx + dy * dy);
+      var expand = 1;
+      if (dist < 250) {
+        expand = 1 + (1 - dist / 250) * 0.4;
+      }
+
+      var crx = p.rx * breath * expand;
+      var cry = p.ry * breath * expand;
+
+      ctx.save();
+      ctx.translate(px, py);
+      ctx.rotate(p.rotation + Math.sin(time * 0.002 + p.phase) * 0.05);
+
+      var grad = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(crx, cry));
+      var c = p.color;
+      grad.addColorStop(0, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (p.alpha * 1.5) + ')');
+      grad.addColorStop(0.4, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (p.alpha * 0.8) + ')');
+      grad.addColorStop(0.7, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (p.alpha * 0.3) + ')');
+      grad.addColorStop(1, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',0)');
+
+      ctx.beginPath();
+      drawBlobEllipse(ctx, 0, 0, crx, cry, time * 0.008 + p.phase);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      ctx.beginPath();
+      drawBlobEllipse(ctx, 0, 0, crx * 0.7, cry * 0.7, time * 0.008 + p.phase + 1);
+      ctx.strokeStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (p.alpha * 0.6) + ')';
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    for (var d = 0; d < drops.length; d++) {
+      var dr = drops[d];
+      dr.timer++;
+      if (dr.timer < dr.delay) continue;
+
+      var localTime = dr.timer - dr.delay;
+      dr.rippleR += dr.rippleSpeed;
+
+      if (dr.rippleR > dr.rippleMax) {
+        dr.rippleR = 0;
+        dr.timer = 0;
+        dr.delay = 100 + Math.random() * 500;
+        dr.x = Math.random() * w;
+        dr.y = Math.random() * h;
+      }
+
+      var rippleAlpha = dr.alpha * (1 - dr.rippleR / dr.rippleMax);
+      var c = dr.color;
+
+      ctx.beginPath();
+      ctx.arc(dr.x, dr.y - scrollY * 0.01, dr.rippleR, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + rippleAlpha + ')';
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+
+      if (dr.rippleR > 8) {
+        ctx.beginPath();
+        ctx.arc(dr.x, dr.y - scrollY * 0.01, dr.rippleR * 0.5, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (rippleAlpha * 0.5) + ')';
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  function drawBlobEllipse(ctx, cx, cy, rx, ry, t) {
+    var steps = 60;
+    for (var i = 0; i <= steps; i++) {
+      var angle = (i / steps) * Math.PI * 2;
+      var noise1 = Math.sin(angle * 3 + t * 1.2) * 0.08;
+      var noise2 = Math.sin(angle * 5 + t * 0.7) * 0.05;
+      var noise3 = Math.sin(angle * 7 + t * 1.8) * 0.03;
+      var r = 1 + noise1 + noise2 + noise3;
+      var x = cx + Math.cos(angle) * rx * r;
+      var y = cy + Math.sin(angle) * ry * r;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+  }
+
+  window.addEventListener('resize', resize);
+  document.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+  document.addEventListener('mouseleave', function() { mouse.x = -1000; mouse.y = -1000; });
+
+  resize();
+  draw();
+})();
+</script><script>
+  (function() {
+    var canvas = document.getElementById('bg-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var w, h, lines, mouse = { x: -1000, y: -1000 };
+    var time = 0;
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      createLines();
+    }
+
+    function createLines() {
+      lines = [];
+      var count = Math.floor(h / 28);
+      for (var i = 0; i < count; i++) {
+        var baseY = (i / count) * h;
+        var speed = 0.15 + Math.random() * 0.35;
+        var amp = 8 + Math.random() * 20;
+        var freq = 0.002 + Math.random() * 0.003;
+        var phase = Math.random() * Math.PI * 2;
+        var alpha = 0.03 + Math.random() * 0.06;
+        var drift = (Math.random() - 0.5) * 0.15;
+
+        var r = Math.random();
+        var color;
+        if (r < 0.45) {
+          color = [59, 159, 212];
+        } else if (r < 0.6) {
+          color = [140, 29, 64];
+        } else if (r < 0.72) {
+          color = [155, 111, 207];
+        } else if (r < 0.82) {
+          color = [54, 181, 160];
+        } else if (r < 0.92) {
+          color = [232, 114, 42];
+        } else {
+          color = [255, 198, 39];
+        }
+
+        lines.push({
+          baseY: baseY,
+          speed: speed,
+          amp: amp,
+          freq: freq,
+          phase: phase,
+          alpha: alpha,
+          drift: drift,
+          color: color,
+          lineWidth: 0.5 + Math.random() * 1.0
+        });
+      }
+    }
+
+    function draw() {
+      time += 0.008;
+      ctx.clearRect(0, 0, w, h);
+
+      for (var i = 0; i < lines.length; i++) {
+        var l = lines[i];
+        var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        var viewY = l.baseY - (scrollY * l.drift);
+
+        ctx.beginPath();
+        var points = 80;
+        for (var p = 0; p <= points; p++) {
+          var x = (p / points) * (w + 100) - 50;
+          var waveOffset = Math.sin(x * l.freq + time * l.speed + l.phase) * l.amp;
+          var wave2 = Math.sin(x * l.freq * 1.7 + time * l.speed * 0.6 + l.phase * 2.3) * l.amp * 0.3;
+
+          var dx = mouse.x - x;
+          var dy = mouse.y - (viewY + waveOffset);
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          var mouseDisplace = 0;
+          if (dist < 200) {
+            mouseDisplace = (1 - dist / 200) * 30 * (dy > 0 ? -1 : 1);
+          }
+
+          var y = viewY + waveOffset + wave2 + mouseDisplace;
+
+          if (p === 0) {
+            ctx.moveTo(x, y);
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+
+        var a = l.alpha;
+        ctx.strokeStyle = 'rgba(' + l.color[0] + ',' + l.color[1] + ',' + l.color[2] + ',' + a + ')';
+        ctx.lineWidth = l.lineWidth;
+        ctx.stroke();
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    document.
