@@ -81,11 +81,28 @@ a:hover { color: #FFD75C; }
   color: white;
 }
 
-/* ---- Interactive particle canvas ---- */
-#bg-canvas {
+
+/* ---- Background map (CONUS flood data) ---- */
+body::before {
+  content: '';
   position: fixed;
   inset: 0;
   z-index: 0;
+  background-image: url('images/conus_bg.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+/* Subtle vignette to fade the map edges */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(13, 10, 15, 0.6) 100%);
   pointer-events: none;
 }
 
