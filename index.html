@@ -89,11 +89,28 @@ a:hover { color: #FFD75C; }
   color: white;
 }
 
-/* ---- Interactive particle canvas ---- */
-#bg-canvas {
+
+/* ---- Background map (CONUS flood data) ---- */
+body::before {
+  content: '';
   position: fixed;
   inset: 0;
   z-index: 0;
+  background-image: url('images/conus_bg.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+/* Subtle vignette to fade the map edges */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(13, 10, 15, 0.6) 100%);
   pointer-events: none;
 }
 
@@ -608,12 +625,9 @@ a:hover { color: #FFD75C; }
   .stat-item { flex: 1 1 45%; }
 }
 
-  </style>
+</style>
 </head>
 <body>
-
-  <canvas id="bg-canvas"></canvas>
-
   <nav class="nav">
     <div class="nav-inner">
       <a href="index.html" class="nav-name">FLORES_LAB //</a>
@@ -855,178 +869,7 @@ a:hover { color: #FFD75C; }
   })();
   </script>
 
-  <script>
-(function() {
-  var canvas = document.getElementById('bg-canvas');
-  var ctx = canvas.getContext('2d');
-  var w, h, time = 0;
-  var mouse = { x: -1000, y: -1000 };
-  var pools = [];
-  var drops = [];
-
-  function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-    createPools();
-  }
-
-  function createPools() {
-    pools = [];
-    var count = 12 + Math.floor(Math.random() * 8);
-    for (var i = 0; i < count; i++) {
-      pools.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        rx: 60 + Math.random() * 180,
-        ry: 30 + Math.random() * 80,
-        phase: Math.random() * Math.PI * 2,
-        breathSpeed: 0.3 + Math.random() * 0.5,
-        breathAmp: 0.06 + Math.random() * 0.1,
-        driftX: (Math.random() - 0.5) * 0.12,
-        driftY: 0.02 + Math.random() * 0.08,
-        rotation: Math.random() * Math.PI * 0.3 - 0.15,
-        alpha: 0.025 + Math.random() * 0.035,
-        color: pickColor()
-      });
-    }
-
-    drops = [];
-    for (var d = 0; d < 40; d++) {
-      drops.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: 2 + Math.random() * 6,
-        rippleR: 0,
-        rippleMax: 20 + Math.random() * 40,
-        rippleSpeed: 0.3 + Math.random() * 0.4,
-        delay: Math.random() * 600,
-        timer: 0,
-        alpha: 0.04 + Math.random() * 0.06,
-        color: pickColor()
-      });
-    }
-  }
-
-  function pickColor() {
-    var r = Math.random();
-    if (r < 0.55) return [59, 159, 212];
-    if (r < 0.7) return [40, 120, 180];
-    if (r < 0.8) return [140, 29, 64];
-    if (r < 0.88) return [155, 111, 207];
-    if (r < 0.94) return [54, 181, 160];
-    return [255, 198, 39];
-  }
-
-  function draw() {
-    time++;
-    ctx.clearRect(0, 0, w, h);
-    var scrollY = window.pageYOffset || 0;
-
-    for (var i = 0; i < pools.length; i++) {
-      var p = pools[i];
-      var breath = 1 + Math.sin(time * 0.01 * p.breathSpeed + p.phase) * p.breathAmp;
-      var px = p.x + Math.sin(time * 0.003 + p.phase) * 15;
-      var py = p.y + time * p.driftY * 0.3 - scrollY * 0.03;
-
-      py = ((py % (h + 200)) + h + 200) % (h + 200) - 100;
-
-      var dx = mouse.x - px;
-      var dy = mouse.y - py;
-      var dist = Math.sqrt(dx * dx + dy * dy);
-      var expand = 1;
-      if (dist < 250) {
-        expand = 1 + (1 - dist / 250) * 0.4;
-      }
-
-      var crx = p.rx * breath * expand;
-      var cry = p.ry * breath * expand;
-
-      ctx.save();
-      ctx.translate(px, py);
-      ctx.rotate(p.rotation + Math.sin(time * 0.002 + p.phase) * 0.05);
-
-      var grad = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(crx, cry));
-      var c = p.color;
-      grad.addColorStop(0, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (p.alpha * 1.5) + ')');
-      grad.addColorStop(0.4, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (p.alpha * 0.8) + ')');
-      grad.addColorStop(0.7, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (p.alpha * 0.3) + ')');
-      grad.addColorStop(1, 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',0)');
-
-      ctx.beginPath();
-      drawBlobEllipse(ctx, 0, 0, crx, cry, time * 0.008 + p.phase);
-      ctx.fillStyle = grad;
-      ctx.fill();
-
-      ctx.beginPath();
-      drawBlobEllipse(ctx, 0, 0, crx * 0.7, cry * 0.7, time * 0.008 + p.phase + 1);
-      ctx.strokeStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (p.alpha * 0.6) + ')';
-      ctx.lineWidth = 0.5;
-      ctx.stroke();
-
-      ctx.restore();
-    }
-
-    for (var d = 0; d < drops.length; d++) {
-      var dr = drops[d];
-      dr.timer++;
-      if (dr.timer < dr.delay) continue;
-
-      var localTime = dr.timer - dr.delay;
-      dr.rippleR += dr.rippleSpeed;
-
-      if (dr.rippleR > dr.rippleMax) {
-        dr.rippleR = 0;
-        dr.timer = 0;
-        dr.delay = 100 + Math.random() * 500;
-        dr.x = Math.random() * w;
-        dr.y = Math.random() * h;
-      }
-
-      var rippleAlpha = dr.alpha * (1 - dr.rippleR / dr.rippleMax);
-      var c = dr.color;
-
-      ctx.beginPath();
-      ctx.arc(dr.x, dr.y - scrollY * 0.01, dr.rippleR, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + rippleAlpha + ')';
-      ctx.lineWidth = 0.8;
-      ctx.stroke();
-
-      if (dr.rippleR > 8) {
-        ctx.beginPath();
-        ctx.arc(dr.x, dr.y - scrollY * 0.01, dr.rippleR * 0.5, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + (rippleAlpha * 0.5) + ')';
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
-    }
-
-    requestAnimationFrame(draw);
-  }
-
-  function drawBlobEllipse(ctx, cx, cy, rx, ry, t) {
-    var steps = 60;
-    for (var i = 0; i <= steps; i++) {
-      var angle = (i / steps) * Math.PI * 2;
-      var noise1 = Math.sin(angle * 3 + t * 1.2) * 0.08;
-      var noise2 = Math.sin(angle * 5 + t * 0.7) * 0.05;
-      var noise3 = Math.sin(angle * 7 + t * 1.8) * 0.03;
-      var r = 1 + noise1 + noise2 + noise3;
-      var x = cx + Math.cos(angle) * rx * r;
-      var y = cy + Math.sin(angle) * ry * r;
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.closePath();
-  }
-
-  window.addEventListener('resize', resize);
-  document.addEventListener('mousemove', function(e) { mouse.x = e.clientX; mouse.y = e.clientY; });
-  document.addEventListener('mouseleave', function() { mouse.x = -1000; mouse.y = -1000; });
-
-  resize();
-  draw();
-})();
-  </script>
+  
 
 </body>
 </html>
