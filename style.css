@@ -567,6 +567,15 @@ body::after {
   padding: 2px 8px; border-radius: 4px;
   background: var(--asu-maroon-glow); color: #E0758E; white-space: nowrap;
 }
+.alumni-committee {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ---- Tab content ---- */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
 
 /* ---- Footer ---- */
 .footer { border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; }
@@ -604,7 +613,6 @@ body::after {
   .stat-strip { max-width: 100%; }
   .pill-row { justify-content: center; }
   .hero-text h1 { font-size: 2rem; }
-  .affiliation-logos { justify-content: center; }
 
   .editorial-row { grid-template-columns: 1fr; }
 
