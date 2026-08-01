@@ -316,26 +316,6 @@ body::after {
 }
 .hero-bio + .hero-bio { margin-top: 0.75rem; }
 
-/* ---- Affiliation logos ---- */
-.affiliation-logos {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  margin-top: 1.25rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border);
-}
-
-.affiliation-logos img {
-  height: 50px;
-  width: auto;
-  opacity: 0.85;
-  transition: opacity 0.2s;
-}
-.affiliation-logos img:hover {
-  opacity: 1;
-}
-
 /* ---- Stat strip ---- */
 .stat-strip {
   display: flex;
@@ -575,6 +555,11 @@ body::after {
   padding: 2px 8px; border-radius: 4px;
   background: var(--asu-maroon-glow); color: #E0758E; white-space: nowrap;
 }
+.alumni-committee {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
 
 /* ---- Footer ---- */
 .footer { border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; }
@@ -594,6 +579,10 @@ body::after {
   margin: 0.5rem 0;
 }
 
+/* ---- Tab content ---- */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
   .nav-links {
@@ -612,7 +601,6 @@ body::after {
   .stat-strip { max-width: 100%; }
   .pill-row { justify-content: center; }
   .hero-text h1 { font-size: 2rem; }
-  .affiliation-logos { justify-content: center; }
 
   .editorial-row { grid-template-columns: 1fr; }
 
@@ -630,7 +618,7 @@ body::after {
 <body>
   <nav class="nav">
     <div class="nav-inner">
-      <a href="index.html" class="nav-name">FLORES_LAB //</a>
+      <a href="#" class="nav-name" onclick="switchTab('home'); return false;">FLORES_LAB //</a>
       <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <line x1="3" y1="6" x2="21" y2="6"/>
@@ -639,8 +627,8 @@ body::after {
         </svg>
       </button>
       <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="students.html">Students</a></li>
+        <li><a href="#" data-tab="home" class="active" onclick="switchTab('home'); return false;">Home</a></li>
+        <li><a href="#students" data-tab="students" onclick="switchTab('students'); return false;">Students</a></li>
         <li><a href="https://search.asu.edu/profile/3269825" target="_blank" rel="noopener">ASU Profile</a></li>
         <li><a href="https://scholar.google.com/citations?user=OSSzZk4AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener">Google Scholar</a></li>
         <li><a href="https://bsky.app/profile/aaflores.bsky.social" target="_blank" rel="noopener">Bluesky</a></li>
@@ -651,6 +639,9 @@ body::after {
   </nav>
 
   <main class="container">
+
+    <!-- ==================== HOME TAB ==================== -->
+    <div id="home-content" class="tab-content active">
 
     <section class="hero">
       <div class="hero-grid">
@@ -670,14 +661,9 @@ body::after {
             I earned my B.A. and M.S. in Geography from Texas Tech University and completed my PhD at the University of Utah. My research has been funded by the National Science Foundation and the Ford Foundation. I teach courses in GIS, environmental justice, and statistics, and I am deeply committed to mentoring students. Outside of academia, you can usually find me hanging out with my dogs by the pool, watching sports, or grilling.
           </p>
 
-          <div class="affiliation-logos">
-            <a href="https://sgsup.asu.edu" target="_blank" rel="noopener"><img src="images/SGSUP_Logo.png" alt="ASU School of Geographical Sciences and Urban Planning"></a>
-            <a href="https://thesanfordschool.asu.edu/data-devils" target="_blank" rel="noopener"><img src="images/DD_logo.PNG" alt="Data Devils"></a>
-          </div>
-
           <div class="stat-strip">
-            <div class="stat-item"><div class="stat-value gold">NSF</div><div class="stat-label">Funded</div></div>
-            <div class="stat-item"><div class="stat-value maroon">8</div><div class="stat-label">Advisees</div></div>
+            <div class="stat-item"><div class="stat-value gold" style="font-size: 1rem;">NSF · ABOR</div><div class="stat-label">Funded</div></div>
+            <div class="stat-item"><div class="stat-value maroon">7</div><div class="stat-label">Advisees</div></div>
             <div class="stat-item"><div class="stat-value blue">GIS</div><div class="stat-label">Methods</div></div>
             <div class="stat-item"><div class="stat-value gold">EJ</div><div class="stat-label">Focus</div></div>
           </div>
@@ -848,7 +834,99 @@ body::after {
           <a href="https://www.govtech.com/health/gis-supports-informs-bringing-food-to-arizona-tribal-nations" target="_blank" rel="noopener" class="media-link">Government Tech &rarr;</a>
         </div>
       </div>
+      <div class="editorial-row" style="margin-top: 1.5rem;">
+        <div class="community-card">
+          <div class="research-img-placeholder" style="margin: -1.75rem -1.75rem 1.25rem; border-radius: 10px 10px 0 0; overflow: hidden;">
+            <svg viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
+              <rect width="800" height="180" fill="#1A1508"/>
+              <!-- Maricopa County outline (simplified) -->
+              <path d="M180 35 L320 30 L380 45 L420 40 L460 50 L480 70 L500 65 L520 80 L510 100 L520 120 L500 135 L460 140 L420 145 L380 140 L340 150 L300 145 L260 140 L220 130 L200 110 L190 85 L180 60 Z" fill="rgba(255,198,39,0.04)" stroke="rgba(255,198,39,0.18)" stroke-width="1"/>
+              <!-- Dot density for dog licensing -->
+              <circle cx="280" cy="80" r="3" fill="rgba(232,114,42,0.5)"/><circle cx="310" cy="95" r="2.5" fill="rgba(232,114,42,0.4)"/><circle cx="350" cy="85" r="3.5" fill="rgba(232,114,42,0.55)"/><circle cx="390" cy="100" r="2" fill="rgba(232,114,42,0.35)"/><circle cx="420" cy="90" r="4" fill="rgba(232,114,42,0.6)"/><circle cx="340" cy="110" r="2.5" fill="rgba(232,114,42,0.4)"/><circle cx="370" cy="120" r="3" fill="rgba(232,114,42,0.45)"/><circle cx="300" cy="120" r="2" fill="rgba(232,114,42,0.3)"/><circle cx="450" cy="105" r="3" fill="rgba(232,114,42,0.5)"/><circle cx="260" cy="100" r="2.5" fill="rgba(232,114,42,0.35)"/>
+              <!-- Compliant dots -->
+              <circle cx="295" cy="70" r="2" fill="rgba(54,181,160,0.4)"/><circle cx="360" cy="75" r="2.5" fill="rgba(54,181,160,0.5)"/><circle cx="400" cy="80" r="2" fill="rgba(54,181,160,0.35)"/><circle cx="330" cy="100" r="1.5" fill="rgba(54,181,160,0.3)"/><circle cx="470" cy="85" r="2" fill="rgba(54,181,160,0.4)"/>
+              <!-- Legend -->
+              <circle cx="580" cy="60" r="4" fill="rgba(232,114,42,0.5)"/><text x="592" y="64" fill="rgba(255,198,39,0.4)" font-family="'IBM Plex Mono', monospace" font-size="9">LOW COMPLIANCE</text>
+              <circle cx="580" cy="80" r="4" fill="rgba(54,181,160,0.5)"/><text x="592" y="84" fill="rgba(255,198,39,0.4)" font-family="'IBM Plex Mono', monospace" font-size="9">HIGH COMPLIANCE</text>
+              <!-- Paw prints (abstract) -->
+              <circle cx="620" cy="120" r="5" fill="rgba(255,198,39,0.08)"/><circle cx="612" cy="112" r="2.5" fill="rgba(255,198,39,0.06)"/><circle cx="628" cy="112" r="2.5" fill="rgba(255,198,39,0.06)"/><circle cx="608" cy="118" r="2" fill="rgba(255,198,39,0.05)"/><circle cx="632" cy="118" r="2" fill="rgba(255,198,39,0.05)"/>
+              <text x="400" y="170" text-anchor="middle" fill="rgba(255,198,39,0.22)" font-family="'IBM Plex Mono', monospace" font-size="10">DOG LICENSING COMPLIANCE // MARICOPA COUNTY</text>
+            </svg>
+          </div>
+          <h3>Dog Licensing Compliance in Maricopa County</h3>
+          <p>In collaboration with Maricopa County Animal Care and Control, we geolocated areas of low dog licensing compliance across the county. This ArcGIS StoryMap project identifies spatial patterns that can help target outreach and improve public health and animal welfare outcomes.</p>
+          <div class="media-links">
+            <a href="https://storymaps.arcgis.com/stories/6696a4b8045244c0bc360f90ac3177a0" target="_blank" rel="noopener" class="media-link">ArcGIS StoryMap &rarr;</a>
+          </div>
+        </div>
+        <div class="community-card">
+          <div class="research-img-placeholder" style="margin: -1.75rem -1.75rem 1.25rem; border-radius: 10px 10px 0 0; overflow: hidden;">
+            <svg viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
+              <rect width="800" height="180" fill="#1A1508"/>
+              <!-- Arizona state outline (simplified) -->
+              <path d="M160 25 L440 25 L460 30 L470 155 L420 155 L400 140 L380 155 L200 155 L160 80 Z" fill="rgba(255,198,39,0.03)" stroke="rgba(255,198,39,0.15)" stroke-width="1"/>
+              <!-- Service area regions -->
+              <path d="M200 50 L340 50 L350 100 L300 120 L220 110 L200 70 Z" fill="rgba(140,29,64,0.12)" stroke="rgba(140,29,64,0.25)" stroke-width="0.5"/>
+              <path d="M340 50 L420 45 L440 90 L400 120 L350 100 Z" fill="rgba(59,159,212,0.1)" stroke="rgba(59,159,212,0.2)" stroke-width="0.5"/>
+              <path d="M220 110 L300 120 L350 100 L400 120 L420 155 L380 155 L200 155 Z" fill="rgba(54,181,160,0.08)" stroke="rgba(54,181,160,0.18)" stroke-width="0.5"/>
+              <path d="M380 155 L420 155 L440 90 L400 120 Z" fill="rgba(232,114,42,0.1)" stroke="rgba(232,114,42,0.2)" stroke-width="0.5"/>
+              <!-- Data points -->
+              <circle cx="270" cy="80" r="4" fill="rgba(140,29,64,0.4)"/><circle cx="300" cy="90" r="3" fill="rgba(140,29,64,0.3)"/>
+              <circle cx="380" cy="70" r="3.5" fill="rgba(59,159,212,0.35)"/><circle cx="400" cy="85" r="3" fill="rgba(59,159,212,0.3)"/>
+              <circle cx="310" cy="130" r="4" fill="rgba(54,181,160,0.35)"/><circle cx="350" cy="140" r="3" fill="rgba(54,181,160,0.3)"/>
+              <circle cx="410" cy="135" r="3" fill="rgba(232,114,42,0.35)"/>
+              <!-- Dashboard bars on right -->
+              <rect x="530" y="40" width="180" height="14" rx="2" fill="rgba(255,198,39,0.06)"/><rect x="530" y="40" width="140" height="14" rx="2" fill="rgba(140,29,64,0.2)"/>
+              <rect x="530" y="60" width="180" height="14" rx="2" fill="rgba(255,198,39,0.06)"/><rect x="530" y="60" width="110" height="14" rx="2" fill="rgba(59,159,212,0.18)"/>
+              <rect x="530" y="80" width="180" height="14" rx="2" fill="rgba(255,198,39,0.06)"/><rect x="530" y="80" width="90" height="14" rx="2" fill="rgba(54,181,160,0.18)"/>
+              <rect x="530" y="100" width="180" height="14" rx="2" fill="rgba(255,198,39,0.06)"/><rect x="530" y="100" width="60" height="14" rx="2" fill="rgba(232,114,42,0.18)"/>
+              <text x="620" y="135" text-anchor="middle" fill="rgba(255,198,39,0.3)" font-family="'IBM Plex Mono', monospace" font-size="9">DEMOGRAPHIC PROFILES</text>
+              <text x="400" y="170" text-anchor="middle" fill="rgba(255,198,39,0.22)" font-family="'IBM Plex Mono', monospace" font-size="10">FEEDING ARIZONA // STATEWIDE FOOD BANK SERVICE AREAS</text>
+            </svg>
+          </div>
+          <h3>Feeding Arizona</h3>
+          <p>This interactive dashboard presents demographic and food insecurity profiles across food bank service areas statewide, prepared for St. Mary's Food Bank, United Food Bank, Community Food Bank of Southern Arizona, and Yuma Community Food Bank.</p>
+          <div class="media-links">
+            <a href="https://connormsheehan.github.io/FeedingArizona/" target="_blank" rel="noopener" class="media-link">Feeding Arizona Dashboard &rarr;</a>
+          </div>
+        </div>
+      </div>
     </section>
+
+    </div><!-- end #home-content -->
+
+    <!-- ==================== STUDENTS TAB ==================== -->
+    <div id="students-content" class="tab-content">
+
+    <div class="page-header"><h1>Students</h1><p>Current PhD and masters students I advise or co-advise, along with recent alumni.</p><div class="grid-line" style="margin-top: 1rem;"></div></div>
+
+    <section class="section" style="padding-top: 1.5rem;">
+      <div class="section-header"><span class="section-tag asu">Current</span><h2>Current Advisees</h2></div>
+      <div class="students-grid">
+        <div class="student-card"><img src="images/sophiya.jpg" alt="Sophiya Gyanwali" class="student-photo"><div class="student-info"><h3 class="student-name">Sophiya Gyanwali</h3><p class="student-program">PhD Student in GIS</p><p class="student-committee">Committee: Dr. Aaron Flores (Chair), Dr. Dylan Connor, Dr. Sara Meerow</p><p class="student-bio">Sophiya is a social scientist and human geographer specializing in social vulnerability, urban development, and environmental justice in the context of flooding. She holds an M.S. in Geography from Virginia Tech and a B.S. in Environmental Science from Kathmandu University in Nepal. Her doctoral research investigates development patterns within FEMA-designated and federally-overlooked flood zones over time, examining the social determinants that drive these trends and their implications for vulnerable communities.</p></div></div>
+        <div class="student-card"><img src="images/alamin.jpg" alt="Alamin Molla" class="student-photo"><div class="student-info"><h3 class="student-name">Alamin Molla</h3><p class="student-program">PhD Candidate in GIS</p><p class="student-committee">Committee: Dr. David Sailor (Co-Chair), Dr. Aaron Flores (Co-Chair), Dr. Heather Baier</p><p class="student-bio">Alamin is an urban scientist and geospatial data expert specializing in spatial data science, urban climate, and environmental justice. He holds an M.S. in Geoinformatics &amp; Geospatial Intelligence from George Mason University, an M.S. in Geography from Auburn University, and a B.S. in Urban and Rural Planning from Khulna University, Bangladesh. His doctoral research integrates GeoAI, UAV technology, and advanced geospatial methods to address urban challenges such as extreme heat, air quality, and climate resilience.</p></div></div>
+        <div class="student-card"><img src="images/ritvik.jpg" alt="Ritvik Shukla" class="student-photo"><div class="student-info"><h3 class="student-name">Ritvik Shukla</h3><p class="student-program">PhD Candidate in Environmental Social Science</p><p class="student-committee">Committee: Dr. Abigail York (Chair), Dr. Danae Hernandez-Cortes, Dr. Kelli Larson, Dr. Aaron Flores</p><p class="student-bio">Ritvik is a just transition scientist with a particular interest in mixed methods research. He holds a B.S. in Environment and Natural Resources from Ohio State and an M.S. in Earth and Environmental Resources Management from the University of South Carolina. His dissertation examines the supply, demand, and governance of public electric vehicle charging infrastructure in Maricopa County, Arizona.</p></div></div>
+        <div class="student-card"><img src="images/consolata.jpg" alt="Consolata Macharia" class="student-photo"><div class="student-info"><h3 class="student-name">Consolata Macharia</h3><p class="student-program">PhD Student in Geography</p><p class="student-committee">Committee: Dr. Sara Meerow (Chair), Dr. Aaron Flores</p><p class="student-bio">Consolata is a human-environmental geographer whose research explores the intersections of urban climate resilience, green infrastructure planning, environmental justice, and urban climate governance. She examines how green infrastructure can serve as both a resilience strategy and a tool for advancing environmental justice.</p></div></div>
+        <div class="student-card"><img src="images/leo.jpg" alt="Leonardo Prado" class="student-photo"><div class="student-info"><h3 class="student-name">Leonardo Prado</h3><p class="student-program">PhD Student in Geography</p><p class="student-committee">Committee: Dr. Jose-Benito Rosales Chavez (Co-Chair), Dr. Jenni Vanos (Co-Chair), Dr. Aaron Flores</p><p class="student-bio">Leonardo is an environmental social scientist and geographer specializing in urban climate, human thermal comfort, and environmental justice through the lens of Critical Physical Geography. His research examines the heat exposure experienced by street vendors across Los Angeles, Mexico City, and S&atilde;o Paulo.</p></div></div>
+        <div class="student-card"><img src="images/eli.jpg" alt="Eli Martin" class="student-photo"><div class="student-info"><h3 class="student-name">Eli Martin</h3><p class="student-program">Masters Student in Geography (Online)</p><p class="student-committee">Committee: Dr. David Sailor (Chair), Dr. Aaron Flores, Dr. Ariane Middel</p><p class="student-bio">Eli Martin is a Field Technician with the Southwest Integrated Field Laboratory (SW-IFL), a Department of Energy funded project led by Arizona State University that focuses on urban climate research. While working on this project, he is also pursuing a Geography MA through the School of Geographical Sciences and Urban Planning&rsquo;s online program. Prior to joining the SW-IFL project at ASU, Eli worked as a field geologist for an environmental consulting firm in New Mexico after earning an Earth Science BS from the University of Maine in 2018. His research interests include urban climate, extreme heat, and climate resilience.</p></div></div>
+        <div class="student-card"><img src="images/mahin.jpg" alt="Mahin Rahman" class="student-photo"><div class="student-info"><h3 class="student-name">Mahin Rahman</h3><p class="student-program">Incoming PhD Student in Geography (Fall 2026)</p><p class="student-bio">Mahin recently completed his M.A. in Urban and Environmental Planning at ASU and will begin his PhD in Geography in Fall 2026. His research focuses on climate resilience, heat vulnerability, and environmental justice, with particular interest in how environmental and social indicators influence spatial priorities for green infrastructure in Phoenix.</p></div></div>
+      </div>
+    </section>
+
+    <section class="alumni-section">
+      <div class="grid-line"></div>
+      <div class="section-header" style="margin-top: 1.5rem;"><span class="section-tag asu">Alumni</span><h2>Alumni</h2></div>
+      <ul class="alumni-list">
+        <li class="alumni-item"><span class="alumni-degree">PhD</span><div><strong>Hyunho Lee</strong> (GIS, 2022&ndash;2026)<br><span class="alumni-committee">Chair: Dr. WenWen Li · Committee: Dr. Aaron Flores, Dr. Hannah Kerner</span><br><em style="color: var(--text-muted);">Geospatial Artificial Intelligence for Satellite-Based Flood Mapping: Data, Multimodal Fusion, and Explainability</em></div></li>
+        <li class="alumni-item"><span class="alumni-degree">PhD</span><div><strong>Shaylynn Trego</strong> (Geography, 2023&ndash;2026)<br><span class="alumni-committee">Co-Chairs: Dr. Sara Meerow, Dr. David Hondula · Committee: Dr. Aaron Flores, Dr. Ladd Keith</span><br><em style="color: var(--text-muted);">From Policy to Perception: Institutionalizing Heat Resilience Across Scales in America's Hottest Large City</em></div></li>
+        <li class="alumni-item"><span class="alumni-degree">PhD</span><div><strong>Yilei Yu</strong> (GIS, 2023&ndash;2025)<br><span class="alumni-committee">Chair: Dr. Dylan Connor · Committee: Dr. Aaron Flores, Dr. Sara Meerow</span><br><em style="color: var(--text-muted);">Spatial Data Science for Natural Hazards and the Built Environment</em></div></li>
+        <li class="alumni-item"><span class="alumni-degree">MA</span><div><strong>Mahin Rahman</strong> (Urban &amp; Environmental Planning, 2025&ndash;2026)<br><span class="alumni-committee">Chair: Dr. Sara Meerow · Committee: Dr. Aaron Flores, Dr. Daoqin Tong</span><br><em style="color: var(--text-muted);">Spatial Planning of Urban Vegetation for Climate Resilience: A Sensitivity Analysis of Prioritization Indicators in Phoenix, Arizona</em></div></li>
+        <li class="alumni-item"><span class="alumni-degree">MA</span><div><strong>Carson Metzler</strong> (Geography, 2023&ndash;2025)<br><span class="alumni-committee">Co-Chairs: Dr. Aaron Flores, Dr. Jennifer Vanos · Committee: Dr. Connor Sheehan</span><br><em style="color: var(--text-muted);">Sleeping in the Heat: Insights from the HeatSuite Phoenix Pilot Study</em></div></li>
+        <li class="alumni-item"><span class="alumni-degree">MA</span><div><strong>Bradly Mannix</strong> (Geography, 2023&ndash;2025)<br><span class="alumni-committee">Chair: Dr. Jose-Benito Rosales Chavez · Committee: Dr. Aaron Flores, Dr. Deirdre Pfeiffer</span><br><em style="color: var(--text-muted);">Urban Food Equity: Addressing Food Diversity Disparities in HOLC Redlined Communities of Phoenix</em></div></li>
+      </ul>
+    </section>
+
+    </div><!-- end #students-content -->
 
   </main>
 
@@ -867,9 +945,49 @@ body::after {
     if (pill) pill.href = 'mai' + 'lto:' + full;
     if (text) text.textContent = full;
   })();
-  </script>
 
-  
+  // Tab switching
+  function switchTab(tab) {
+    // Toggle content
+    document.getElementById('home-content').classList.toggle('active', tab === 'home');
+    document.getElementById('students-content').classList.toggle('active', tab === 'students');
+
+    // Update nav active state
+    document.querySelectorAll('.nav-links a[data-tab]').forEach(function(a) {
+      a.classList.toggle('active', a.getAttribute('data-tab') === tab);
+    });
+
+    // Close mobile menu if open
+    var navLinks = document.querySelector('.nav-links');
+    if (navLinks) navLinks.classList.remove('open');
+
+    // Update URL hash without scrolling
+    if (tab === 'students') {
+      history.replaceState(null, '', '#students');
+    } else {
+      history.replaceState(null, '', window.location.pathname);
+    }
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+  }
+
+  // On page load, check hash
+  (function() {
+    if (window.location.hash === '#students') {
+      switchTab('students');
+    }
+  })();
+
+  // Handle browser back/forward
+  window.addEventListener('hashchange', function() {
+    if (window.location.hash === '#students') {
+      switchTab('students');
+    } else {
+      switchTab('home');
+    }
+  });
+  </script>
 
 </body>
 </html>
